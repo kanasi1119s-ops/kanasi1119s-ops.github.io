@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kanasi1119s-ops.github.io/sitemap.xml

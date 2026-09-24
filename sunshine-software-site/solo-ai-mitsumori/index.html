@@ -1,0 +1,741 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<link rel="canonical" href="https://kanasi1119s-ops.github.io/solo-ai-mitsumori/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kanasi1119s-ops.github.io/solo-ai-mitsumori/">
+<meta property="og:site_name" content="サンシャインソフトウェア">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:title" content="ソロAI見積書">
+<meta property="og:description" content="見積書・請求書を作ったことがない人のための、買い切り2,000円のソフト。名刺を撮るだけでAIが取引先登録、見積書から請求書へワンクリック変換。データは端末内のみに保存。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ccircle cx=%2250%22 cy=%2250%22 r=%2240%22 fill=%22%23e8a33d%22/%3E%3C/svg%3E">
+</head><body>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ソロAI見積書</title>
+<meta name="description" content="見積書・請求書を作ったことがない人のための、買い切り2,000円のソフト。名刺を撮るだけでAIが取引先登録、見積書から請求書へワンクリック変換。データは端末内のみに保存。">
+<meta property="og:title" content="ソロAI見積書">
+<meta property="og:description" content="見積書・請求書を作ったことがない人のための、買い切り2,000円のソフト。名刺を撮るだけでAIが取引先登録できます。">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #fffdf6;
+    --paper-2: #fff6df;
+    --ink: #3d2e18;
+    --ink-soft: #8a7550;
+    --line: #f6e2a0;
+    --line-strong: #edc96a;
+    --stamp: #e2861a;
+    --stamp-deep: #c06f0f;
+    --forest: #3f8fa3;
+    --forest-deep: #2c6c7d;
+    --gold: #e2861a;
+    --radius: 4px;
+    --serif: 'Shippori Mincho', serif;
+    --sans: 'Zen Kaku Gothic New', sans-serif;
+  }
+  :root[data-theme="dark"] {
+    --paper: #241c0f;
+    --paper-2: #2c2312;
+    --ink: #fbf1de;
+    --ink-soft: #d8c093;
+    --line: #4a3a1c;
+    --line-strong: #6b5526;
+    --stamp: #f2a13c;
+    --stamp-deep: #e2861a;
+    --forest: #7fc2d6;
+    --forest-deep: #5fa3b8;
+    --gold: #f2a13c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #241c0f;
+      --paper-2: #2c2312;
+      --ink: #fbf1de;
+      --ink-soft: #d8c093;
+      --line: #4a3a1c;
+      --line-strong: #6b5526;
+      --stamp: #f2a13c;
+      --stamp-deep: #e2861a;
+      --forest: #7fc2d6;
+      --forest-deep: #5fa3b8;
+      --gold: #f2a13c;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    line-height: 1.85;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+  }
+  img, svg { max-width: 100%; }
+
+  .wrap {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: var(--paper);
+    border-bottom: 1px solid var(--line-strong);
+  }
+  .header-inner {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+  }
+  .brand-mark {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 32% 30%, #ffd77a, var(--stamp) 70%);
+    color: #fff9ec;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--serif);
+    font-size: 15px;
+    font-weight: 700;
+    flex-shrink: 0;
+    box-shadow: 0 1px 0 rgba(61, 46, 24, 0.08);
+  }
+  nav.top-nav { display: flex; gap: 20px; }
+  nav.top-nav a { color: var(--ink-soft); text-decoration: none; font-size: 13px; white-space: nowrap; }
+  nav.top-nav a:hover { color: var(--forest); }
+  @media (max-width: 640px) { nav.top-nav { display: none; } }
+
+  .hero { padding: 72px 0 56px; border-bottom: 1px solid var(--line-strong); }
+  .eyebrow-line { display: flex; align-items: center; gap: 10px; color: var(--ink-soft); font-size: 13px; margin-bottom: 22px; }
+  .eyebrow-line::before { content: ""; width: 28px; height: 1px; background: var(--line-strong); }
+  h1.hero-title { font-family: var(--serif); font-weight: 600; font-size: clamp(28px, 5vw, 42px); line-height: 1.55; margin: 0 0 22px; max-width: 16ch; text-wrap: balance; }
+  .hero-lede { font-size: 16px; color: var(--ink-soft); max-width: 48ch; margin: 0 0 32px; }
+  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 13px 26px; border-radius: var(--radius); font-size: 14px; font-weight: 700; text-decoration: none; border: 1px solid transparent; cursor: pointer; }
+  .btn-primary { background: var(--stamp); color: #fff9f4; }
+  .btn-primary:hover { background: var(--stamp-deep); }
+  .btn-ghost { background: transparent; color: var(--ink); border-color: var(--line-strong); }
+  .btn-ghost:hover { border-color: var(--forest); color: var(--forest); }
+
+  section.block { padding: 56px 0; border-bottom: 1px solid var(--line-strong); }
+  .block-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 30px; }
+  .block-no { font-family: var(--serif); font-size: 13px; color: var(--stamp); letter-spacing: 0.08em; flex-shrink: 0; }
+  h2.block-title { font-family: var(--serif); font-weight: 600; font-size: clamp(20px, 3vw, 26px); margin: 0; line-height: 1.5; text-wrap: balance; }
+
+  .hurdles { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line-strong); border: 1px solid var(--line-strong); }
+  .hurdle { background: var(--paper); padding: 26px 24px; }
+  .hurdle h3 { font-family: var(--serif); font-size: 17px; margin: 0 0 10px; font-weight: 600; }
+  .hurdle p { margin: 0; font-size: 14px; color: var(--ink-soft); }
+  @media (max-width: 640px) { .hurdles { grid-template-columns: 1fr; } }
+
+  .origin p { max-width: 62ch; font-size: 15px; }
+  .origin-quote { margin: 28px 0 0; padding: 18px 22px; border-left: 3px solid var(--stamp); background: var(--paper-2); font-family: var(--serif); font-size: 15px; max-width: 56ch; }
+
+  .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line-strong); border: 1px solid var(--line-strong); }
+  .feature { background: var(--paper); padding: 22px 20px; }
+  .feature .fi { font-size: 22px; margin-bottom: 10px; display: block; }
+  .feature h3 { font-size: 14.5px; margin: 0 0 6px; font-weight: 700; }
+  .feature p { margin: 0; font-size: 12.5px; color: var(--ink-soft); line-height: 1.7; }
+  @media (max-width: 720px) { .feature-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 460px) { .feature-grid { grid-template-columns: 1fr; } }
+
+  table.compare { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  table.compare th, table.compare td { border: 1px solid var(--line-strong); padding: 12px 14px; text-align: left; vertical-align: top; }
+  table.compare thead th { font-family: var(--serif); font-weight: 600; background: var(--paper-2); }
+  table.compare thead th.this-col { color: var(--stamp); }
+  table.compare tbody th { font-weight: 700; background: var(--paper-2); width: 22%; }
+  .compare-wrap { overflow-x: auto; }
+
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .stat { padding: 20px 18px; border: 1px solid var(--line-strong); position: relative; }
+  .stamp-mark { position: absolute; top: 14px; right: 14px; width: 38px; height: 38px; border: 1.5px solid var(--stamp); border-radius: 4px; color: var(--stamp); display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-size: 11px; font-weight: 700; line-height: 1.3; text-align: center; transform: rotate(-6deg); opacity: 0.85; }
+  .stat .num { font-family: var(--serif); font-size: 20px; font-weight: 600; margin-bottom: 8px; max-width: 78%; }
+  .stat p { margin: 0; font-size: 12.5px; color: var(--ink-soft); }
+  @media (max-width: 640px) { .stats { grid-template-columns: 1fr; } }
+  .note-box { margin-top: 24px; padding: 18px 20px; background: var(--paper-2); border: 1px solid var(--line-strong); font-size: 13px; color: var(--ink-soft); }
+  .note-box strong { color: var(--ink); }
+
+  .price-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .price-card { border: 1px solid var(--line-strong); padding: 28px 24px; }
+  .price-card.emph { border-color: var(--stamp); background: var(--paper-2); }
+  .price-card h3 { font-size: 13px; color: var(--ink-soft); margin: 0 0 12px; font-weight: 700; }
+  .price-amount { font-family: var(--serif); font-size: 34px; font-weight: 600; margin: 0 0 4px; }
+  .price-sub { font-size: 12px; color: var(--ink-soft); margin: 0 0 18px; }
+  .price-card ul { margin: 0; padding: 0; list-style: none; font-size: 13px; }
+  .price-card li { padding: 7px 0 7px 20px; position: relative; border-top: 1px dashed var(--line-strong); }
+  .price-card li:first-child { border-top: none; }
+  .price-card li::before { content: "・"; position: absolute; left: 0; color: var(--stamp); }
+  @media (max-width: 640px) { .price-grid { grid-template-columns: 1fr; } }
+
+  .cta-block { text-align: left; padding: 60px 0 64px; }
+  .cta-block h2 { font-family: var(--serif); font-size: clamp(22px, 4vw, 28px); font-weight: 600; max-width: 18ch; margin: 0 0 16px; text-wrap: balance; }
+  .cta-block p { color: var(--ink-soft); font-size: 14.5px; max-width: 52ch; margin: 0 0 26px; }
+  .cta-form-note { margin-top: 18px; font-size: 12.5px; color: var(--ink-soft); }
+
+  .apply-field { display: block; margin-bottom: 22px; }
+  .apply-field span.f-label { display: block; font-size: 13px; font-weight: 700; margin-bottom: 8px; }
+  .apply-field span.f-optional { font-weight: 400; color: var(--ink-soft); font-size: 12px; }
+  .apply-field input[type="text"], .apply-field input[type="email"], .apply-field textarea {
+    width: 100%; font-family: var(--sans); font-size: 14px; color: var(--ink); background: transparent; border: none; border-bottom: 1.5px solid var(--line-strong); padding: 9px 2px; outline: none;
+  }
+  .apply-field input:focus, .apply-field textarea:focus { border-bottom-color: var(--stamp); }
+  .apply-field textarea { min-height: 90px; resize: vertical; line-height: 1.7; }
+  .radio-set { border: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+  .radio-opt { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; border: 1px solid var(--line-strong); cursor: pointer; font-size: 13.5px; }
+  .radio-opt:has(input:checked) { border-color: var(--stamp); background: var(--paper-2); }
+  .radio-opt input { margin-top: 3px; accent-color: var(--stamp); }
+  .radio-opt .ro-price { display: block; color: var(--ink-soft); font-size: 12px; margin-top: 2px; }
+  .apply-submit-row { margin-top: 30px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+
+  .faq-item { border-top: 1px solid var(--line-strong); padding: 4px 0; }
+  .faq-item:last-child { border-bottom: 1px solid var(--line-strong); }
+  .faq-item summary { cursor: pointer; padding: 16px 28px 16px 2px; font-weight: 700; font-size: 14.5px; list-style: none; position: relative; }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; position: absolute; right: 4px; top: 14px; color: var(--stamp); font-family: var(--serif); font-size: 18px; }
+  .faq-item[open] summary::after { content: "−"; }
+  .faq-item .faq-a { padding: 0 2px 18px; font-size: 13.5px; color: var(--ink-soft); max-width: 62ch; }
+
+  footer { padding: 32px 0 60px; font-size: 12px; color: var(--ink-soft); }
+  footer .foot-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+  footer a { color: var(--ink-soft); text-decoration: underline; text-underline-offset: 3px; }
+  footer a:hover { color: var(--forest); }
+
+  #tokushoho, #apply, #faq, #privacy { display: none; background: var(--paper); min-height: 100vh; }
+  #tokushoho.open, #apply.open, #faq.open, #privacy.open { display: block; }
+  #main-content.hidden { display: none; }
+  .tk-inner { max-width: 720px; margin: 0 auto; padding: 48px 24px 80px; }
+  .tk-back { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--ink-soft); text-decoration: none; margin-bottom: 28px; }
+  .tk-back:hover { color: var(--forest); }
+  h1.tk-title { font-family: var(--serif); font-size: 22px; margin: 0 0 30px; }
+  .tk-row { padding: 16px 0; border-top: 1px solid var(--line-strong); display: grid; grid-template-columns: 160px 1fr; gap: 16px; font-size: 13.5px; }
+  .tk-row:last-child { border-bottom: 1px solid var(--line-strong); }
+  .tk-row dt { font-weight: 700; color: var(--ink); }
+  .tk-row dd { margin: 0; color: var(--ink-soft); line-height: 1.8; }
+  @media (max-width: 560px) { .tk-row { grid-template-columns: 1fr; gap: 4px; } }
+</style>
+</head>
+<body>
+
+<div id="main-content">
+
+  <header>
+    <div class="header-inner">
+      <a class="brand" href="#top">
+        <span class="brand-mark">見</span>
+        ソロAI見積書
+      </a>
+      <nav class="top-nav">
+        <a href="#features">機能</a>
+        <a href="#compare">大手との違い</a>
+        <a href="#price">価格</a>
+        <a href="#" onclick="showApply(); return false;">お申し込み</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <section class="hero wrap">
+      <div class="eyebrow-line">個人事業主のための、経理未経験者にもやさしい見積書・請求書ソフト</div>
+      <h1 class="hero-title">見積書も請求書も、作ったことがない人のために作りました。</h1>
+      <p class="hero-lede">
+        取引先の情報は、名刺を撮るだけでAIが入力。品目と単価を入れれば消費税も自動計算、見積書からワンクリックで請求書に変換できます。
+        データは端末の外に出ません（AI機能をご利用の際は、その画像だけがAIに送信されます）。
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="https://mitsumori-seikyusho.onrender.com" target="_blank" rel="noopener">今すぐアプリを試す</a>
+        <a class="btn btn-ghost" href="#features">できることを見る</a>
+      </div>
+    </section>
+
+    <section class="block wrap">
+      <div class="block-head">
+        <span class="block-no">01</span>
+        <h2 class="block-title">個人事業主の見積書・請求書には、2つのハードルがある</h2>
+      </div>
+      <div class="hurdles">
+        <div class="hurdle">
+          <h3>お金のハードル</h3>
+          <p>見積書・請求書ソフトも月額のサブスクが主流。取引先が少なくても、使い続ける限り払い続けることになります。</p>
+        </div>
+        <div class="hurdle">
+          <h3>分からなさのハードル</h3>
+          <p>インボイス制度、税率区分、書類の様式…経理の前提知識がある人向けの画面に、最初の一枚で尻込みしてしまいます。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="block wrap origin">
+      <div class="block-head">
+        <span class="block-no">02</span>
+        <h2 class="block-title">開発のきっかけ</h2>
+      </div>
+      <p>
+        経理ソフト「ソロAI帳簿」を作ったとき、記帳の次に必ず必要になるのが見積書・請求書でした。
+        単体の見積書ソフトを探してみても、やはり月額課金が前提だったり、大掛かりな経理ソフトとセットでないと使えなかったりします。
+        同じ思想——買い切りで、AIで手間を減らし、専門知識がなくても迷わない——を、見積書・請求書だけでも独立して使えるようにしたいと考えて作りました。
+      </p>
+      <p class="origin-quote">
+        帳簿と同じように、見積書も「分からなくても迷わない」ことを最優先にしました。
+      </p>
+    </section>
+
+    <section class="block wrap" id="features">
+      <div class="block-head">
+        <span class="block-no">03</span>
+        <h2 class="block-title">主な機能</h2>
+      </div>
+      <div class="feature-grid">
+        <div class="feature">
+          <span class="fi">📷</span>
+          <h3>AI名刺読取</h3>
+          <p>名刺を撮るだけで、会社名・住所・連絡先を自動入力します。</p>
+        </div>
+        <div class="feature">
+          <span class="fi">📝</span>
+          <h3>見積書作成</h3>
+          <p>品目・数量・単価を入力するだけ。消費税（10%・8%）も自動で計算します。</p>
+        </div>
+        <div class="feature">
+          <span class="fi">🔁</span>
+          <h3>請求書へワンクリック変換</h3>
+          <p>見積書の内容を引き継いで、そのまま請求書に変換できます。</p>
+        </div>
+        <div class="feature">
+          <span class="fi">🧾</span>
+          <h3>インボイス対応</h3>
+          <p>登録番号の表示、税率ごとの内訳をきちんと記載します。</p>
+        </div>
+        <div class="feature">
+          <span class="fi">📱</span>
+          <h3>ホーム画面から起動</h3>
+          <p>スマホのアプリのように使え、オフラインでも開けます。</p>
+        </div>
+        <div class="feature">
+          <span class="fi">🔒</span>
+          <h3>完全ローカル保存</h3>
+          <p>取引先・書類データは端末の中だけに保存。AI機能利用時は、その画像だけがAIに送信されます。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="block wrap" id="compare">
+      <div class="block-head">
+        <span class="block-no">04</span>
+        <h2 class="block-title">大手クラウド請求書ソフトとの違い</h2>
+      </div>
+      <div class="compare-wrap">
+        <table class="compare">
+          <thead>
+            <tr>
+              <th></th>
+              <th>大手クラウド請求書ソフト</th>
+              <th class="this-col">ソロAI見積書</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>料金体系</th>
+              <td>月額サブスクが基本。使い続ける限り払い続ける</td>
+              <td>買い切り2,000円＋AI名刺読取は月額500円から</td>
+            </tr>
+            <tr>
+              <th>データ保存</th>
+              <td>クラウド（相手のサーバー）</td>
+              <td>端末内のみ※。外部送信なし</td>
+            </tr>
+            <tr>
+              <th>想定ユーザー</th>
+              <td>幅広い事業規模</td>
+              <td>経理未経験の個人事業主に特化</td>
+            </tr>
+            <tr>
+              <th>設計思想</th>
+              <td>機能の豊富さ・自動連携</td>
+              <td>「分からなくても迷わない」を最優先</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:12px; color:var(--ink-soft); margin-top:10px;">※AI名刺読取機能をご利用の際は、名刺の画像のみがAI（Google Gemini）に送信されます。取引先・見積書・請求書のデータ自体は送信されません。</p>
+    </section>
+
+    <section class="block wrap">
+      <div class="block-head">
+        <span class="block-no">05</span>
+        <h2 class="block-title">実際に手を動かして確認したこと</h2>
+      </div>
+      <div class="stats">
+        <div class="stat">
+          <div class="stamp-mark">確認<br>済</div>
+          <div class="num">10%・8%混在</div>
+          <p>税率が混在する見積書でも、税率ごとの内訳・合計を計算どおり検証済み</p>
+        </div>
+        <div class="stat">
+          <div class="num">実機で確認</div>
+          <p>実際のスマートフォンとブラウザで、ホーム画面追加・オフライン起動を確認済み</p>
+        </div>
+        <div class="stat">
+          <div class="num">実写真で確認</div>
+          <p>実際の名刺画像で、会社名から連絡先まで全項目の抽出を確認済み</p>
+        </div>
+      </div>
+      <div class="note-box">
+        <strong>これは「入力通りに正しく動くか」という内部の整合性の確認です。</strong>
+        インボイス制度など税務まわりの表記が実務上十分かどうかは、専門家による確認を今後順次進めていきます。作成された書類は、最終的にご自身でも内容をご確認ください。
+      </div>
+    </section>
+
+    <section class="block wrap" id="price">
+      <div class="block-head">
+        <span class="block-no">06</span>
+        <h2 class="block-title">価格</h2>
+      </div>
+      <div class="price-grid">
+        <div class="price-card">
+          <h3>ソフト本体</h3>
+          <div class="price-amount">¥2,000</div>
+          <p class="price-sub">買い切り・一度きり（現在は早期アクセス期間として無料でお試しいただけます）</p>
+          <ul>
+            <li>取引先管理（手入力）</li>
+            <li>見積書・請求書の作成</li>
+            <li>PDF出力・書類の一覧管理</li>
+            <li>AI名刺読取機能以外の全てがずっと使える</li>
+          </ul>
+        </div>
+        <div class="price-card emph">
+          <h3>AI名刺読取機能</h3>
+          <div class="price-amount">¥500<span style="font-size:15px;">/月</span></div>
+          <p class="price-sub">希望者のみ・任意課金</p>
+          <ul>
+            <li>名刺のAI読み取り</li>
+            <li>取引先情報への自動反映</li>
+            <li>使わない月はいつでも解約可能</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-block wrap" id="cta">
+      <div class="block-head">
+        <span class="block-no">07</span>
+        <h2 style="margin:0;">お申し込み・お問い合わせ</h2>
+      </div>
+      <p>
+        ソフト本体はどなたでもすぐにお試しいただけます。AI名刺読取機能のお申し込みは、
+        下のフォームに入力すると、内容を整えたメールがそのまま準備されます。
+        「まず話を聞いてみたい」というご相談だけでも歓迎です。
+      </p>
+      <div class="hero-actions" style="margin-bottom: 10px;">
+        <a class="btn btn-primary" href="https://mitsumori-seikyusho.onrender.com" target="_blank" rel="noopener">今すぐアプリを試す</a>
+        <a class="btn btn-ghost" href="#" onclick="showApply(); return false;">AI機能の申し込みフォームへ</a>
+      </div>
+      <p class="cta-form-note">お急ぎの場合は、kanasi1119s@gmail.com 宛に直接メールをお送りいただいても構いません。</p>
+    </section>
+
+  </main>
+
+  <footer class="wrap">
+    <div class="foot-row">
+      <span>&copy; <a href="../">サンシャインソフトウェア</a></span>
+      <span style="display:flex; gap:18px; flex-wrap:wrap;">
+        <a href="#" onclick="showFaq(); return false;">よくある質問</a>
+        <a href="#" onclick="showPrivacy(); return false;">プライバシーポリシー</a>
+        <a href="#" onclick="showTokushoho(); return false;">特定商取引法に基づく表記</a>
+      </span>
+    </div>
+  </footer>
+
+</div>
+
+<div id="apply">
+  <div class="tk-inner">
+    <a class="tk-back" href="#" onclick="hideApply(); return false;">← サイトに戻る</a>
+    <h1 class="tk-title">お申し込み・お問い合わせ</h1>
+    <p style="font-size:14px; color:var(--ink-soft); margin-bottom:32px;">
+      入力して送信すると、内容を整えたメールがお使いのメールアプリで開きます。そのまま送信してください。
+      折り返し、お支払い方法とライセンスキーをご案内します。
+    </p>
+
+    <form id="apply-form">
+      <label class="apply-field">
+        <span class="f-label">お名前</span>
+        <input type="text" id="apply-name" name="name" required>
+      </label>
+
+      <label class="apply-field">
+        <span class="f-label">屋号 <span class="f-optional">（任意）</span></span>
+        <input type="text" id="apply-business" name="business">
+      </label>
+
+      <label class="apply-field">
+        <span class="f-label">メールアドレス</span>
+        <input type="email" id="apply-email" name="email" required>
+      </label>
+
+      <div class="apply-field">
+        <span class="f-label">ご希望のプラン</span>
+        <fieldset class="radio-set">
+          <label class="radio-opt">
+            <input type="radio" id="apply-plan-1" name="plan" value="AI名刺読取機能のみ" checked>
+            <span>AI名刺読取機能<span class="ro-price">月額¥500（ソフト本体は無料でお試しいただけます）</span></span>
+          </label>
+          <label class="radio-opt">
+            <input type="radio" id="apply-plan-2" name="plan" value="まずは相談したい">
+            <span>まずは相談したい<span class="ro-price">詳しい説明が欲しい・検討中</span></span>
+          </label>
+        </fieldset>
+      </div>
+
+      <label class="apply-field">
+        <span class="f-label">ご質問・ご要望 <span class="f-optional">（任意）</span></span>
+        <textarea id="apply-message" name="message" placeholder="気になる点があれば、ご自由にお書きください"></textarea>
+      </label>
+
+      <div class="apply-submit-row">
+        <button type="submit" class="btn btn-primary">メールを準備する</button>
+        <span style="font-size:12px; color:var(--ink-soft);">送信ボタンではなく、メールアプリが開きます</span>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div id="faq">
+  <div class="tk-inner">
+    <a class="tk-back" href="#" onclick="hideFaq(); return false;">← サイトに戻る</a>
+    <h1 class="tk-title">よくある質問</h1>
+
+    <details class="faq-item">
+      <summary>AI名刺読み取りが、いつもよりすごく時間がかかることがあるのはなぜですか？</summary>
+      <div class="faq-a">しばらく使っていない状態から読み取ると、サーバー側の準備に1〜2分ほどかかることがあります。これは故障ではありません。同じ操作をもう一度試していただくと、2回目以降は数秒〜十数秒程度まで速くなります。</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>どんな人におすすめですか？</summary>
+      <div class="faq-a">見積書・請求書を作ったことがなく、大手のクラウド請求書ソフトも難しそうで手が出せていない個人事業主の方に、一番おすすめです。逆に、取引先が非常に多い・既に他の請求書ソフトに慣れている方には、大手のソフトの方が合っている場合もあります。</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>大手のクラウド請求書ソフトと何が違うのですか？</summary>
+      <div class="faq-a">大手は月額のサブスクが基本ですが、このソフトは本体が買い切り2,000円です。またデータを外部のサーバーに送らず、端末の中だけで完結する設計になっています。</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>データはどこに保存されますか？</summary>
+      <div class="faq-a">お使いの端末（スマホ・パソコン）の中だけに保存されます。名刺をAIで読み取るときだけ、その画像がAI（Google Gemini）に送られて処理されますが、取引先・見積書・請求書のデータ自体は運営者のサーバーには一切送信・保存されません。</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>インボイス制度に対応していますか？</summary>
+      <div class="faq-a">事業者情報にインボイス登録番号を設定すると、見積書・請求書に自動で表示されます。税率（10%・8%）ごとの内訳も自動で計算・表示します。</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>見積書から請求書への変換は自動ですか？</summary>
+      <div class="faq-a">はい。見積書の一覧から「請求書に変換」を選ぶだけで、取引先・品目・金額を引き継いだ請求書が作成されます。同じ見積書から二重に変換されることはありません。</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>スマホとパソコン、両方で使えますか？</summary>
+      <div class="faq-a">どちらの端末でも開けますが、データは端末ごとに独立しています（自動では同期されません）。</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>支払い方法は何がありますか？</summary>
+      <div class="faq-a">AI名刺読取機能は、お申し込みフォームからご連絡いただいた方に、個別にお支払い方法をご案内しています。ソフト本体は現在無料でお試しいただけます。</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>申し込んでから、いつ使えるようになりますか？</summary>
+      <div class="faq-a">お支払いを確認でき次第、ライセンスキーをメールでお送りします。ソフト本体は、お申し込みなしですぐにお試しいただけます。</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>返金はできますか？</summary>
+      <div class="faq-a">デジタルサービスの性質上、提供開始後のお客様都合による返金は行っておりません。ご不安な点があれば、お申し込み前にお気軽にご質問ください。</div>
+    </details>
+  </div>
+</div>
+
+<div id="privacy">
+  <div class="tk-inner">
+    <a class="tk-back" href="#" onclick="hidePrivacy(); return false;">← サイトに戻る</a>
+    <h1 class="tk-title">プライバシーポリシー</h1>
+    <dl>
+      <div class="tk-row">
+        <dt>基本方針</dt>
+        <dd>サンシャインソフトウェア（以下「運営者」）は、ソロAI見積書および本サイトの利用者の情報を、必要な範囲でのみ取り扱い、適切に管理します。</dd>
+      </div>
+      <div class="tk-row">
+        <dt>ソフトウェア本体について</dt>
+        <dd>
+          取引先・見積書・請求書のデータは、お使いの端末の中だけに保存され、運営者のサーバーには一切送信されません。<br>
+          AI名刺読取機能をご利用の際は、名刺の画像のみが処理のためGoogleのAI（Gemini API）に送信されます。この画像は取引先情報の抽出にのみ使用され、運営者側で保存することはありません。
+        </dd>
+      </div>
+      <div class="tk-row">
+        <dt>本サイト（紹介・申し込みページ）について</dt>
+        <dd>
+          本サイトはサーバーを持たない静的なページです。お申し込みフォームに入力した内容は、運営者のサーバーに送信・保存されることはなく、お使いのメールアプリを開くためだけに使われます。<br>
+          本サイトでは、Cookieや解析ツールによる利用者の追跡は行っていません。
+        </dd>
+      </div>
+      <div class="tk-row">
+        <dt>お問い合わせでいただいた情報の取り扱い</dt>
+        <dd>メールでいただいたお名前・メールアドレス等は、お問い合わせへの回答、お申し込み手続き（お支払いのご案内・ライセンスキーの発行）にのみ使用します。ご本人の同意なく第三者に提供することはありません。</dd>
+      </div>
+      <div class="tk-row">
+        <dt>お問い合わせ先</dt>
+        <dd>本ポリシーに関するご質問は、kanasi1119s@gmail.com までご連絡ください。</dd>
+      </div>
+      <div class="tk-row">
+        <dt>改定について</dt>
+        <dd>本ポリシーの内容は、必要に応じて改定することがあります。重要な変更がある場合は、本サイト上でお知らせします。</dd>
+      </div>
+    </dl>
+  </div>
+</div>
+
+<div id="tokushoho">
+  <div class="tk-inner">
+    <a class="tk-back" href="#" onclick="hideTokushoho(); return false;">← サイトに戻る</a>
+    <h1 class="tk-title">特定商取引法に基づく表記</h1>
+    <dl>
+      <div class="tk-row">
+        <dt>販売事業者名</dt>
+        <dd>サンシャインソフトウェア（運営責任者：旭洋平）</dd>
+      </div>
+      <div class="tk-row">
+        <dt>所在地</dt>
+        <dd>お客様からご請求をいただいた場合、遅滞なく開示いたします。お問い合わせは下記メールアドレスよりお願いいたします。</dd>
+      </div>
+      <div class="tk-row">
+        <dt>お問い合わせ先</dt>
+        <dd>
+          メールアドレス：kanasi1119s@gmail.com<br>
+          ※電話でのお問い合わせは受け付けておりません。メールにてご連絡ください。
+        </dd>
+      </div>
+      <div class="tk-row">
+        <dt>販売価格</dt>
+        <dd>
+          ソフト本体：2,000円（税込・買い切り）※現在早期アクセス期間として無料<br>
+          AI名刺読取機能：月額500円（税込）※2回目以降のお支払いも同額です
+        </dd>
+      </div>
+      <div class="tk-row">
+        <dt>商品代金以外の必要料金</dt>
+        <dd>インターネット接続に必要な通信費は、お客様のご負担となります。</dd>
+      </div>
+      <div class="tk-row">
+        <dt>お支払い方法</dt>
+        <dd>メールでのお申し込み後、個別にご案内します。</dd>
+      </div>
+      <div class="tk-row">
+        <dt>お支払い時期</dt>
+        <dd>AI名刺読取機能：初回お申し込み時、以降は毎月同日。</dd>
+      </div>
+      <div class="tk-row">
+        <dt>サービス提供時期</dt>
+        <dd>お支払い確認後、直ちにライセンスキーをお送りします。</dd>
+      </div>
+      <div class="tk-row">
+        <dt>動作環境</dt>
+        <dd>インターネットに接続されたスマートフォン・パソコン。AI名刺読取機能の利用には、インターネット接続環境が必要です。</dd>
+      </div>
+      <div class="tk-row">
+        <dt>中途解約について</dt>
+        <dd>AI名刺読取機能は、いつでもご自身で解約が可能です。解約した場合、当月分の日割り返金は行いません（当月末までご利用いただけます）。</dd>
+      </div>
+      <div class="tk-row">
+        <dt>返品・キャンセルについて</dt>
+        <dd>本サービスはデジタルサービスの性質上、提供開始後のお客様都合による返金は行っておりません。</dd>
+      </div>
+    </dl>
+  </div>
+</div>
+
+<script>
+  function hideAllPanels() {
+    document.getElementById('tokushoho').classList.remove('open');
+    document.getElementById('apply').classList.remove('open');
+    document.getElementById('faq').classList.remove('open');
+    document.getElementById('privacy').classList.remove('open');
+    document.getElementById('main-content').classList.add('hidden');
+  }
+  function showTokushoho() { hideAllPanels(); document.getElementById('tokushoho').classList.add('open'); window.scrollTo(0, 0); history.replaceState(null, '', '#tokushoho'); }
+  function hideTokushoho() { document.getElementById('tokushoho').classList.remove('open'); document.getElementById('main-content').classList.remove('hidden'); window.scrollTo(0, 0); history.replaceState(null, '', '#top'); }
+  function showApply() { hideAllPanels(); document.getElementById('apply').classList.add('open'); window.scrollTo(0, 0); history.replaceState(null, '', '#apply'); }
+  function hideApply() { document.getElementById('apply').classList.remove('open'); document.getElementById('main-content').classList.remove('hidden'); window.scrollTo(0, 0); history.replaceState(null, '', '#top'); }
+  function showFaq() { hideAllPanels(); document.getElementById('faq').classList.add('open'); window.scrollTo(0, 0); history.replaceState(null, '', '#faq'); }
+  function hideFaq() { document.getElementById('faq').classList.remove('open'); document.getElementById('main-content').classList.remove('hidden'); window.scrollTo(0, 0); history.replaceState(null, '', '#top'); }
+  function showPrivacy() { hideAllPanels(); document.getElementById('privacy').classList.add('open'); window.scrollTo(0, 0); history.replaceState(null, '', '#privacy'); }
+  function hidePrivacy() { document.getElementById('privacy').classList.remove('open'); document.getElementById('main-content').classList.remove('hidden'); window.scrollTo(0, 0); history.replaceState(null, '', '#top'); }
+
+  document.getElementById('apply-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    const data = new FormData(e.target);
+    const name = data.get('name') || '';
+    const business = data.get('business') || '';
+    const email = data.get('email') || '';
+    const plan = data.get('plan') || '';
+    const message = data.get('message') || '';
+
+    const subject = 'ソロAI見積書 お申し込み（' + name + '様）';
+    const bodyLines = [
+      'ソロAI見積書の申し込みフォームより送信します。',
+      '',
+      'お名前：' + name,
+      '屋号：' + (business || '（未記入）'),
+      'メールアドレス：' + email,
+      'ご希望のプラン：' + plan,
+      '',
+      'ご質問・ご要望：',
+      message || '（特になし）',
+    ];
+    const body = bodyLines.join('\n');
+
+    window.location.href =
+      'mailto:kanasi1119s@gmail.com' +
+      '?subject=' + encodeURIComponent(subject) +
+      '&body=' + encodeURIComponent(body);
+  });
+
+  if (window.location.hash === '#tokushoho') { showTokushoho(); }
+  else if (window.location.hash === '#apply') { showApply(); }
+  else if (window.location.hash === '#faq') { showFaq(); }
+  else if (window.location.hash === '#privacy') { showPrivacy(); }
+</script>
+
+</body>
+</html>
+
+</body></html>

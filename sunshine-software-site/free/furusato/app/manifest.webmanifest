@@ -1,0 +1,1 @@
+{"name":"ふるさと納税 控除上限額シミュレーター","short_name":"ふるさと納税シム","description":"入力データは一切外部送信せず、ブラウザ内だけで完結するふるさと納税控除上限額の概算シミュレーター","start_url":"./","display":"standalone","background_color":"#ffffff","theme_color":"#c0392b","lang":"ja","scope":"./","icons":[{"src":"icons/icon.svg","sizes":"512x512","type":"image/svg+xml","purpose":"any maskable"}]}

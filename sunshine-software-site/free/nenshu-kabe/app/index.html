@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<title>年収の壁シミュレーター</title>
+<style>
+:root{color-scheme:light dark}
+*{box-sizing:border-box}
+body{color:#1a1a1a;background:#f6f7f5;margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans",Ubuntu,Cantarell,"Helvetica Neue","Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic UI",Meiryo,sans-serif;line-height:1.6}
+#app{max-width:720px;margin:0 auto;padding:16px}
+.hidden{display:none}
+h1{margin-bottom:.25rem;font-size:1.4rem}
+.subtitle{color:#555;margin-top:0;font-size:.9rem}
+.privacy-badge{color:#1f6f5c;background:#e6f2ee;border-radius:999px;margin:4px 4px 12px 0;padding:4px 12px;font-size:.8rem;display:inline-block}
+.preview-note{background:#fff8e1;border:1px solid #f0d78c;color:#6b5300;border-radius:8px;padding:10px 14px;font-size:.82rem;margin-bottom:16px}
+form{background:#fff;border-radius:12px;padding:16px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.field{flex-direction:column;gap:4px;margin-bottom:14px;display:flex}
+label{font-size:.9rem;font-weight:600}
+input[type=number]{border:1px solid #ccc;border-radius:8px;width:100%;padding:10px;font-size:1rem;background:#fff;color:#1a1a1a}
+.actions{flex-wrap:wrap;gap:8px;margin-top:12px;display:flex}
+button{color:#fff;cursor:pointer;background:#1f6f5c;border:1px solid #1f6f5c;border-radius:8px;padding:10px 16px;font-size:.95rem}
+button.secondary{color:#1f6f5c;background:#fff}
+.errors{color:#b3261e;font-size:.9rem}
+.summary{background:#fff;border-radius:12px;margin-top:16px;padding:16px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+table{border-collapse:collapse;width:100%;margin-top:8px;font-size:.9rem}
+th,td{text-align:left;border-bottom:1px solid #eee;padding:8px 6px}
+.status-over{color:#b3261e;font-weight:600}
+.status-under{color:#1f6f5c;font-weight:600}
+.disclaimer{color:#666;border-top:1px dashed #ccc;margin-top:16px;padding-top:12px;font-size:.78rem}
+footer{color:#888;text-align:center;margin-top:24px;font-size:.78rem}
+
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]) body{color:#eee;background:#14161a}
+  :root:not([data-theme="light"]) form,:root:not([data-theme="light"]) .summary{box-shadow:none;background:#1e2126}
+  :root:not([data-theme="light"]) input[type=number]{color:#eee;background:#14161a;border-color:#444}
+  :root:not([data-theme="light"]) th,:root:not([data-theme="light"]) td{border-color:#333}
+  :root:not([data-theme="light"]) .disclaimer,:root:not([data-theme="light"]) footer{color:#999}
+  :root:not([data-theme="light"]) .preview-note{background:#3a3210;border-color:#6b5300;color:#f0d78c}
+}
+:root[data-theme="dark"] body{color:#eee;background:#14161a}
+:root[data-theme="dark"] form,:root[data-theme="dark"] .summary{box-shadow:none;background:#1e2126}
+:root[data-theme="dark"] input[type=number]{color:#eee;background:#14161a;border-color:#444}
+:root[data-theme="dark"] th,:root[data-theme="dark"] td{border-color:#333}
+:root[data-theme="dark"] .disclaimer,:root[data-theme="dark"] footer{color:#999}
+:root[data-theme="dark"] .preview-note{background:#3a3210;border-color:#6b5300;color:#f0d78c}
+</style>
+
+<link rel="canonical" href="https://kanasi1119s-ops.github.io/free/nenshu-kabe/app/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kanasi1119s-ops.github.io/free/nenshu-kabe/app/">
+<meta property="og:site_name" content="サンシャインソフトウェア">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:title" content="年収の壁シミュレーター">
+<meta name="description" content="時給と労働時間から、税金・社会保険の「年収の壁」までの余裕を試算する無料ツール。">
+<meta property="og:description" content="時給と労働時間から、税金・社会保険の「年収の壁」までの余裕を試算する無料ツール。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ccircle cx=%2250%22 cy=%2250%22 r=%2240%22 fill=%22%23e8a33d%22/%3E%3C/svg%3E">
+</head>
+<body>
+
+
+<div id="app"></div>
+<script>
+var __PREVIEW_NOTE__ = '';
+
+var e=`2026-09-23`,t=`各しきい値は国税庁・厚生労働省の公表資料および税制改正大綱の報道内容に基づく一般的な目安です（基準日: 2026-09-23）。2025年度税制改正による基礎控除等の引き上げや、2026年10月の被用者保険適用要件（月額賃金要件）見直しなど、制度は今後も変更される可能性があります。最終判断の前には必ず国税庁・厚生労働省の最新の公表情報、または税理士・社会保険労務士にご確認ください。`,n=[{id:`resident-tax`,label:`100万円の壁`,manYen:100,category:`tax`,description:`住民税がかかり始める目安（自治体・控除の内容により異なります）`},{id:`income-tax`,label:`123万円の壁`,manYen:123,category:`tax`,description:`所得税がかかり始める目安（2025年度税制改正で基礎控除等が引き上げられた後の水準）`},{id:`social-106`,label:`106万円の壁`,manYen:106,category:`social`,description:`一定規模以上の企業で働く場合の社会保険加入の目安（月額賃金要件は2026年10月に撤廃予定とされています）`},{id:`social-130`,label:`130万円の壁`,manYen:130,category:`social`,description:`配偶者などの扶養（社会保険の被扶養者）から外れる目安`},{id:`spouse-150`,label:`150万円の壁`,manYen:150,category:`tax`,description:`配偶者特別控除が満額から段階的に縮小し始める目安`},{id:`spouse-201`,label:`201万円の壁`,manYen:201,category:`tax`,description:`配偶者特別控除がなくなる目安`}];function r(e){let t=[];return(!Number.isFinite(e.hourlyWageYen)||e.hourlyWageYen<=0)&&t.push(`時給は0より大きい数値で入力してください。`),(!Number.isFinite(e.hoursPerWeek)||e.hoursPerWeek<0)&&t.push(`週の労働時間は0以上の数値で入力してください。`),(!Number.isFinite(e.weeksPerMonth)||e.weeksPerMonth<=0)&&t.push(`月あたりの週数は0より大きい数値で入力してください。`),(!Number.isFinite(e.otherAnnualIncomeYen)||e.otherAnnualIncomeYen<0)&&t.push(`その他の年収は0以上の数値で入力してください。`),e.hoursPerWeek>168&&t.push(`週の労働時間が168時間（1週間の総時間）を超えています。`),t}function i(e){let t=e.hoursPerWeek*e.weeksPerMonth*12,r=e.hourlyWageYen*t+e.otherAnnualIncomeYen,i=r/12,a=e.hourlyWageYen*e.weeksPerMonth*12;return{annualIncomeYen:r,monthlyIncomeYen:i,results:n.map(t=>{let n=t.manYen*1e4,i=n-r,o=i<0?`over`:`under`,s=null;if(a>0){let t=n-e.otherAnnualIncomeYen;s=t>0?t/e.hourlyWageYen/(e.weeksPerMonth*12):0}return{threshold:t,thresholdYen:n,status:o,diffYen:i,maxWeeklyHoursToStayUnder:s}})}}var a=`income-wall-simulator:v1`;function o(e){try{localStorage.setItem(a,JSON.stringify(e))}catch{}}function s(){try{let e=localStorage.getItem(a);if(!e)return null;let t=JSON.parse(e);return typeof t.hourlyWageYen==`number`&&typeof t.hoursPerWeek==`number`&&typeof t.weeksPerMonth==`number`&&typeof t.otherAnnualIncomeYen==`number`?t:null}catch{return null}}var h={hourlyWageYen:1200,hoursPerWeek:20,weeksPerMonth:4.345,otherAnnualIncomeYen:0},g=document.getElementById(`app`);if(!g)throw Error(`#app 要素が見つかりません`);g.innerHTML=__PREVIEW_NOTE__+`
+  <h1>年収の壁シミュレーター</h1>
+  <p class="subtitle">時給と労働時間から、税金・社会保険の「年収の壁」までの余裕を試算します。</p>
+  <div>
+    <span class="privacy-badge">登録不要</span>
+    <span class="privacy-badge">入力データは外部送信されません</span>
+    <span class="privacy-badge">オフラインでも利用可能</span>
+  </div>
+  <form id="sim-form" novalidate>
+    <div class="field">
+      <label for="hourlyWageYen">時給（円）</label>
+      <input type="number" id="hourlyWageYen" name="hourlyWageYen" min="0" step="1" required />
+    </div>
+    <div class="field">
+      <label for="hoursPerWeek">1週間の労働時間</label>
+      <input type="number" id="hoursPerWeek" name="hoursPerWeek" min="0" max="168" step="0.5" required />
+    </div>
+    <div class="field">
+      <label for="weeksPerMonth">1ヶ月あたりの週数（目安: 4.345）</label>
+      <input type="number" id="weeksPerMonth" name="weeksPerMonth" min="0.1" step="0.001" required />
+    </div>
+    <div class="field">
+      <label for="otherAnnualIncomeYen">その他の年間収入（円・副業など、0でも可）</label>
+      <input type="number" id="otherAnnualIncomeYen" name="otherAnnualIncomeYen" min="0" step="1" required />
+    </div>
+    <div class="errors" id="errors" role="alert"></div>
+    <div class="actions">
+      <button type="submit">試算する</button>
+    </div>
+  </form>
+  <div class="summary hidden" id="summary">
+    <h2>試算結果</h2>
+    <p id="annual-income"></p>
+    <table>
+      <thead>
+        <tr>
+          <th>壁</th>
+          <th>金額</th>
+          <th>区分</th>
+          <th>状態</th>
+          <th>週あたり上限の目安</th>
+        </tr>
+      </thead>
+      <tbody id="result-body"></tbody>
+    </table>
+  </div>
+  <div class="disclaimer">
+    <strong>免責事項:</strong>
+    本ツールは一般的な試算を簡易に行うものであり、税務・社会保険・法律上の助言に代わるものではありません。
+    実際の判定は勤務先の規模・雇用契約・扶養状況・各種控除の適用状況等により異なります。
+    ${t}
+    重要な判断の前には、国税庁・厚生労働省の最新の公表情報、または税理士・社会保険労務士など専門家にご確認ください。
+  </div>
+  <footer>入力データはこの端末のブラウザ内にのみ保存されます（サーバーへの送信は行いません）。基準日: ${e}</footer>
+`;var _=document.getElementById(`sim-form`),v=document.getElementById(`errors`),y=document.getElementById(`summary`),b=document.getElementById(`annual-income`),x=document.getElementById(`result-body`);function D(){let e=new FormData(_);return{hourlyWageYen:Number(e.get(`hourlyWageYen`)),hoursPerWeek:Number(e.get(`hoursPerWeek`)),weeksPerMonth:Number(e.get(`weeksPerMonth`)),otherAnnualIncomeYen:Number(e.get(`otherAnnualIncomeYen`))}}function O(e){_.elements.namedItem(`hourlyWageYen`).value=String(e.hourlyWageYen),_.elements.namedItem(`hoursPerWeek`).value=String(e.hoursPerWeek),_.elements.namedItem(`weeksPerMonth`).value=String(e.weeksPerMonth),_.elements.namedItem(`otherAnnualIncomeYen`).value=String(e.otherAnnualIncomeYen)}function k(e){return Math.round(e).toLocaleString(`ja-JP`)+`円`}function A(e){let t=r(e);if(v.textContent=t.join(` `),t.length>0){y.classList.add(`hidden`);return}let n=i(e);b.textContent=`想定年収: ${k(n.annualIncomeYen)}（月あたり ${k(n.monthlyIncomeYen)}）`,x.innerHTML=n.results.map(e=>{let t=e.status===`over`?`status-over`:`status-under`,n=e.status===`over`?`超過`:`未満`,r=e.maxWeeklyHoursToStayUnder===null?`-`:`${e.maxWeeklyHoursToStayUnder.toFixed(1)}時間/週`;return`<tr>
+        <td>${e.threshold.label}<br><small>${e.threshold.description}</small></td>
+        <td>${k(e.thresholdYen)}</td>
+        <td>${e.threshold.category===`tax`?`税金`:`社会保険`}</td>
+        <td class="${t}">${n}</td>
+        <td>${r}</td>
+      </tr>`}).join(``),y.classList.remove(`hidden`),o(e)}_.addEventListener(`submit`,e=>{e.preventDefault(),A(D())});var j=s()??h;O(j),A(j);
+</script>
+
+</body>
+</html>

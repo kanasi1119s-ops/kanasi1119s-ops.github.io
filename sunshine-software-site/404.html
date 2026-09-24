@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta name="robots" content="noindex">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ページが見つかりません｜サンシャインソフトウェア</title>
+<meta name="description" content="経理未経験の個人事業主のための、買い切り＋AI機能のソフトを作るソフトウェア工房。ソロAI帳簿・ソロAI見積書のほか、無料ソフトも公開しています。">
+<meta property="og:title" content="サンシャインソフトウェア">
+<meta property="og:description" content="経理未経験の個人事業主のための、買い切り＋AI機能のソフトを作るソフトウェア工房。">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #fffdf6;
+    --paper-2: #fff6df;
+    --ink: #3d2e18;
+    --ink-soft: #8a7550;
+    --line: #f6e2a0;
+    --line-strong: #edc96a;
+    --stamp: #e2861a;
+    --stamp-deep: #c06f0f;
+    --forest: #3f8fa3;
+    --forest-deep: #2c6c7d;
+    --radius: 4px;
+    --serif: 'Shippori Mincho', serif;
+    --sans: 'Zen Kaku Gothic New', sans-serif;
+  }
+  :root[data-theme="dark"] {
+    --paper: #241c0f; --paper-2: #2c2312; --ink: #fbf1de; --ink-soft: #d8c093;
+    --line: #4a3a1c; --line-strong: #6b5526; --stamp: #f2a13c; --stamp-deep: #e2861a;
+    --forest: #7fc2d6; --forest-deep: #5fa3b8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #241c0f; --paper-2: #2c2312; --ink: #fbf1de; --ink-soft: #d8c093;
+      --line: #4a3a1c; --line-strong: #6b5526; --stamp: #f2a13c; --stamp-deep: #e2861a;
+      --forest: #7fc2d6; --forest-deep: #5fa3b8;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    line-height: 1.85;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 24px; }
+
+  header { border-bottom: 1px solid var(--line-strong); }
+  .header-inner {
+    max-width: 880px; margin: 0 auto; padding: 20px 24px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .sun-mark {
+    width: 34px; height: 34px; border-radius: 50%; flex-shrink: 0;
+    background: radial-gradient(circle at 32% 30%, #ffe9ad, var(--stamp) 72%);
+    box-shadow: 0 1px 0 rgba(61, 46, 24, 0.08);
+  }
+  .wordmark {
+    font-family: var(--serif); font-weight: 600; font-size: 17px;
+    letter-spacing: 0.03em; color: var(--ink);
+  }
+
+  .hero { padding: 68px 0 52px; border-bottom: 1px solid var(--line-strong); }
+  .eyebrow-line { display: flex; align-items: center; gap: 10px; color: var(--ink-soft); font-size: 13px; margin-bottom: 22px; }
+  .eyebrow-line::before { content: ""; width: 28px; height: 1px; background: var(--line-strong); }
+  h1.hero-title {
+    font-family: var(--serif); font-weight: 600; font-size: clamp(26px, 4.6vw, 38px);
+    line-height: 1.6; margin: 0 0 20px; max-width: 17ch; text-wrap: balance;
+  }
+  .hero-lede { font-size: 15.5px; color: var(--ink-soft); max-width: 52ch; margin: 0; }
+
+  section.block { padding: 52px 0; border-bottom: 1px solid var(--line-strong); }
+  .block-head { margin-bottom: 30px; }
+  h2.block-title {
+    font-family: var(--serif); font-weight: 600; font-size: clamp(18px, 2.6vw, 22px);
+    margin: 0; color: var(--ink-soft); letter-spacing: 0.02em;
+  }
+
+  .product-list { display: flex; flex-direction: column; gap: 1px; background: var(--line-strong); border: 1px solid var(--line-strong); }
+  .product-card {
+    background: var(--paper); padding: 32px; display: grid;
+    grid-template-columns: 56px 1fr auto; gap: 22px; align-items: center;
+    text-decoration: none; color: inherit;
+  }
+  .product-card:hover { background: var(--paper-2); }
+  .product-mark {
+    width: 56px; height: 56px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--serif); font-size: 24px; font-weight: 700; color: #fff9ec;
+    flex-shrink: 0;
+  }
+  .product-mark.keiri { background: radial-gradient(circle at 32% 30%, #ffd77a, var(--stamp) 70%); }
+  .product-mark.mitsu { background: radial-gradient(circle at 32% 30%, #8fd6e6, var(--forest) 70%); }
+  .product-name { font-family: var(--serif); font-size: 19px; font-weight: 600; margin: 0 0 6px; }
+  .product-desc { font-size: 13.5px; color: var(--ink-soft); margin: 0; max-width: 50ch; }
+  .product-price { font-size: 12px; color: var(--ink-soft); margin-top: 8px; }
+  .product-go {
+    font-size: 13px; font-weight: 700; color: var(--stamp); white-space: nowrap;
+  }
+  .product-card:hover .product-go { color: var(--stamp-deep); }
+  @media (max-width: 620px) {
+    .product-card { grid-template-columns: 44px 1fr; }
+    .product-go { grid-column: 2; }
+    .product-mark { width: 44px; height: 44px; font-size: 19px; }
+  }
+
+  :root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+  .block-note { font-size: 13.5px; color: var(--ink-soft); margin: 10px 0 0; }
+  .product-mark.free-1 { background: radial-gradient(circle at 32% 30%, #b9e3c2, #4f9a63 70%); }
+  .product-mark.free-2 { background: radial-gradient(circle at 32% 30%, #8fd6e6, var(--forest) 70%); }
+  .product-mark.free-3 { background: radial-gradient(circle at 32% 30%, #ffd77a, var(--stamp) 70%); }
+  .product-mark.site { background: radial-gradient(circle at 32% 30%, #d9c7f0, #7a5fb0 70%); }
+  .product-price.free { color: #4f9a63; font-weight: 700; }
+  a:focus-visible { outline: 2px solid var(--forest); outline-offset: 3px; }
+
+  .about p { max-width: 62ch; font-size: 14.5px; color: var(--ink-soft); }
+  .about-quote {
+    margin: 24px 0 0; padding: 16px 20px; border-left: 3px solid var(--stamp);
+    background: var(--paper-2); font-family: var(--serif); font-size: 14.5px; max-width: 54ch;
+  }
+
+  footer { padding: 32px 0 56px; font-size: 12px; color: var(--ink-soft); }
+  footer a { color: var(--ink-soft); text-decoration: underline; text-underline-offset: 3px; }
+  footer a:hover { color: var(--forest); }
+</style>
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kanasi1119s-ops.github.io/">
+<meta property="og:site_name" content="サンシャインソフトウェア">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:title" content="サンシャインソフトウェア">
+<meta property="og:description" content="経理未経験の個人事業主のための、買い切り＋AI機能のソフトを作るソフトウェア工房。ソロAI帳簿・ソロAI見積書のほか、無料ソフトも公開しています。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ccircle cx=%2250%22 cy=%2250%22 r=%2240%22 fill=%22%23e8a33d%22/%3E%3C/svg%3E">
+</head>
+<body>
+  <main class="wrap" style="padding:96px 0 120px;">
+    <h1 class="hero-title" style="font-size:clamp(26px,5vw,38px);">ページが見つかりませんでした</h1>
+    <p class="hero-lede">お探しのページは移動したか、削除された可能性があります。</p>
+    <p><a href="/" style="color:var(--forest-deep);">サンシャインソフトウェアのトップへ</a></p>
+  </main>
+</body>
+</html>
