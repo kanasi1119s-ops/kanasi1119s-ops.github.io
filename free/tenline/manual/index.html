@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>テンライン 遊び方（ルールブック）｜サンシャインソフトウェア</title>
+<meta name="description" content="2人用ボードゲーム「テンライン」のルールブック。準備、手番の流れ、勝ち負けの決め方を説明します。">
+<link rel="canonical" href="https://kanasi1119s-ops.github.io/free/tenline/manual/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #fffdf6;
+    --paper-2: #fff6df;
+    --ink: #3d2e18;
+    --ink-soft: #8a7550;
+    --line: #f6e2a0;
+    --line-strong: #edc96a;
+    --stamp: #e2861a;
+    --stamp-deep: #c06f0f;
+    --forest: #3f8fa3;
+    --forest-deep: #2c6c7d;
+    --radius: 4px;
+    --serif: 'Shippori Mincho', serif;
+    --sans: 'Zen Kaku Gothic New', sans-serif;
+  }
+  :root[data-theme="dark"] {
+    --paper: #241c0f; --paper-2: #2c2312; --ink: #fbf1de; --ink-soft: #d8c093;
+    --line: #4a3a1c; --line-strong: #6b5526; --stamp: #f2a13c; --stamp-deep: #e2861a;
+    --forest: #7fc2d6; --forest-deep: #5fa3b8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #241c0f; --paper-2: #2c2312; --ink: #fbf1de; --ink-soft: #d8c093;
+      --line: #4a3a1c; --line-strong: #6b5526; --stamp: #f2a13c; --stamp-deep: #e2861a;
+      --forest: #7fc2d6; --forest-deep: #5fa3b8;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    line-height: 1.85;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 24px; }
+
+  header { border-bottom: 1px solid var(--line-strong); }
+  .header-inner {
+    max-width: 880px; margin: 0 auto; padding: 20px 24px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .sun-mark {
+    width: 34px; height: 34px; border-radius: 50%; flex-shrink: 0;
+    background: radial-gradient(circle at 32% 30%, #ffe9ad, var(--stamp) 72%);
+    box-shadow: 0 1px 0 rgba(61, 46, 24, 0.08);
+  }
+  .wordmark {
+    font-family: var(--serif); font-weight: 600; font-size: 17px;
+    letter-spacing: 0.03em; color: var(--ink);
+  }
+
+  .hero { padding: 68px 0 52px; border-bottom: 1px solid var(--line-strong); }
+  .eyebrow-line { display: flex; align-items: center; gap: 10px; color: var(--ink-soft); font-size: 13px; margin-bottom: 22px; }
+  .eyebrow-line::before { content: ""; width: 28px; height: 1px; background: var(--line-strong); }
+  h1.hero-title {
+    font-family: var(--serif); font-weight: 600; font-size: clamp(26px, 4.6vw, 38px);
+    line-height: 1.6; margin: 0 0 20px; max-width: 17ch; text-wrap: balance;
+  }
+  .hero-lede { font-size: 15.5px; color: var(--ink-soft); max-width: 52ch; margin: 0; }
+
+  section.block { padding: 52px 0; border-bottom: 1px solid var(--line-strong); }
+  .block-head { margin-bottom: 30px; }
+  h2.block-title {
+    font-family: var(--serif); font-weight: 600; font-size: clamp(18px, 2.6vw, 22px);
+    margin: 0; color: var(--ink-soft); letter-spacing: 0.02em;
+  }
+
+  .product-list { display: flex; flex-direction: column; gap: 1px; background: var(--line-strong); border: 1px solid var(--line-strong); }
+  .product-card {
+    background: var(--paper); padding: 32px; display: grid;
+    grid-template-columns: 56px 1fr auto; gap: 22px; align-items: center;
+    text-decoration: none; color: inherit;
+  }
+  .product-card:hover { background: var(--paper-2); }
+  .product-mark {
+    width: 56px; height: 56px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--serif); font-size: 24px; font-weight: 700; color: #fff9ec;
+    flex-shrink: 0;
+  }
+  .product-mark.keiri { background: radial-gradient(circle at 32% 30%, #ffd77a, var(--stamp) 70%); }
+  .product-mark.mitsu { background: radial-gradient(circle at 32% 30%, #8fd6e6, var(--forest) 70%); }
+  .product-name { font-family: var(--serif); font-size: 19px; font-weight: 600; margin: 0 0 6px; }
+  .product-desc { font-size: 13.5px; color: var(--ink-soft); margin: 0; max-width: 50ch; }
+  .product-price { font-size: 12px; color: var(--ink-soft); margin-top: 8px; }
+  .product-go {
+    font-size: 13px; font-weight: 700; color: var(--stamp); white-space: nowrap;
+  }
+  .product-card:hover .product-go { color: var(--stamp-deep); }
+  @media (max-width: 620px) {
+    .product-card { grid-template-columns: 44px 1fr; }
+    .product-go { grid-column: 2; }
+    .product-mark { width: 44px; height: 44px; font-size: 19px; }
+  }
+
+  .about p { max-width: 62ch; font-size: 14.5px; color: var(--ink-soft); }
+  .about-quote {
+    margin: 24px 0 0; padding: 16px 20px; border-left: 3px solid var(--stamp);
+    background: var(--paper-2); font-family: var(--serif); font-size: 14.5px; max-width: 54ch;
+  }
+
+  footer { padding: 32px 0 56px; font-size: 12px; color: var(--ink-soft); }
+  footer a { color: var(--ink-soft); text-decoration: underline; text-underline-offset: 3px; }
+  footer a:hover { color: var(--forest); }
+
+  :root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+  a.home-link { display:flex; align-items:center; gap:12px; text-decoration:none; color:inherit; }
+  .back { margin-left:auto; font-size:12.5px; color:var(--ink-soft); text-decoration:none; }
+  .back:hover { color: var(--forest); }
+  .free-tag { display:inline-block; font-size:12px; font-weight:700; color:var(--forest-deep);
+    border:1px solid var(--forest); border-radius:999px; padding:1px 12px; margin-bottom:18px; }
+  .feature-list { margin:0; padding:0; border-top:1px solid var(--line-strong); }
+  .feature-list div { display:grid; grid-template-columns: 11em 1fr; gap:20px; padding:18px 0; border-bottom:1px solid var(--line); }
+  .feature-list dt { font-family:var(--serif); font-weight:600; font-size:15px; }
+  .feature-list dd { margin:0; font-size:14px; color:var(--ink-soft); }
+  @media (max-width:620px){ .feature-list div { grid-template-columns:1fr; gap:4px; } }
+  .notes { margin:0; padding-left:1.2em; font-size:13.5px; color:var(--ink-soft); max-width:64ch; }
+  .notes li { margin-bottom:8px; }
+  .cta-row { display:flex; flex-wrap:wrap; gap:14px; align-items:center; margin-top:34px; }
+  .btn { display:inline-block; font-family:var(--sans); font-weight:700; font-size:14.5px; text-decoration:none;
+    padding:13px 28px; border-radius:var(--radius); }
+  .btn-primary { background:var(--stamp); color:#fffaf0; }
+  .btn-primary:hover { background:var(--stamp-deep); }
+  .btn-ghost { background:transparent; font-family:var(--sans); cursor:pointer;  border:1px solid var(--line-strong); color:var(--ink); }
+  .btn-ghost:hover { background:var(--paper-2); }
+  .cta-note { font-size:12.5px; color:var(--ink-soft); margin:12px 0 0; }
+  .related { font-size:13.5px; color:var(--ink-soft); margin-top:26px; padding:16px 20px; background:var(--paper-2); border-left:3px solid var(--forest); max-width:62ch; }
+  .related a { color:var(--forest-deep); }
+  a:focus-visible { outline:2px solid var(--forest); outline-offset:3px; }
+</style>
+<style>
+  .manual h2{font-family:var(--serif);font-weight:600;font-size:20px;margin:44px 0 12px;padding-top:20px;border-top:1px solid var(--line-strong)}
+  .manual h3{font-family:var(--serif);font-size:16.5px;margin:26px 0 6px}
+  .manual p,.manual li{font-size:14.5px}
+  .manual table{border-collapse:collapse;width:100%;font-size:13.5px;margin:12px 0;display:block;overflow-x:auto}
+  .manual th,.manual td{border:1px solid var(--line-strong);padding:8px 10px;text-align:left;vertical-align:top}
+  .manual th{background:var(--paper-2)}
+  .manual code{background:var(--paper-2);padding:1px 5px;border-radius:3px}
+  .manual pre{background:var(--paper-2);padding:12px 14px;overflow-x:auto;font-size:13px}
+  .manual blockquote{margin:14px 0;padding:10px 16px;border-left:3px solid var(--forest);background:var(--paper-2)}
+</style>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ccircle cx=%2250%22 cy=%2250%22 r=%2240%22 fill=%22%23e8a33d%22/%3E%3C/svg%3E">
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a class="home-link" href="../../../"><span class="sun-mark"></span><span class="wordmark">サンシャインソフトウェア</span></a>
+      <a class="back" href="../">テンラインの紹介へ</a>
+    </div>
+  </header>
+  <main class="wrap manual">
+    <section class="hero" style="padding-bottom:28px">
+      <span class="free-tag">ルールブック</span>
+      <h1 class="hero-title">テンラインの遊び方</h1>
+      <div class="cta-row" style="margin-top:10px"><a class="btn btn-primary" href="../app/" target="_blank" rel="noopener">テンラインで遊ぶ</a></div>
+    </section>
+<p>バージョン: 1.0（2026-09-27 MVP）</p>
+<h2>コアループ（1文で）</h2>
+<p>自分の持つ1〜8の数字タイルを4x4マスに交互に置いていき、盤面が埋まったときに縦・横・斜めの10本のライン上で数字の合計を比べ、より多くのラインを制した方が勝つ。</p>
+<h2>プレイ人数・時間・対象年齢</h2>
+<ul>
+<li>2人（ホットシート対戦）、または1人対AI（ランダムAI／貪欲AI）</li>
+<li>想定プレイ時間: 5〜10分</li>
+<li>対象年齢: 8歳以上</li>
+</ul>
+<h2>コンポーネント一覧</h2>
+<ul>
+<li>盤面: 4x4マス（16マス）</li>
+<li>数字タイル: 各プレイヤーが「1、2、3、4、5、6、7、8」の8枚を1セットずつ持つ（合計16枚、両者とも同じ内容）</li>
+<li>プレイヤー: A（先手）、B（後手）</li>
+</ul>
+<h2>セットアップ</h2>
+<ol>
+<li>盤面（4x4の空マス）を用意する。</li>
+<li>プレイヤーAとプレイヤーBはそれぞれ「1〜8」の数字タイルを1枚ずつ、合計8枚を手札として持つ。手札はすべて公開情報（相手にも見える）とする。</li>
+<li>プレイヤーAから始める。</li>
+</ol>
+<h2>ターンの流れ</h2>
+<p>手番はA→B→A→B…と厳密に交互に進む（同時手番はない）。</p>
+<p>自分の手番では、以下を1回行う：</p>
+<ol>
+<li>自分の手札の中から、まだ使っていない数字タイルを1枚選ぶ。</li>
+<li>盤面の空いているマスを1つ選び、そのタイルを置く（そのマスは自分の色＋その数字になる）。</li>
+</ol>
+<p>1人が持つタイルは8枚しかなく、ターンごとに1枚使うため、両プレイヤーが8回ずつ、合計16手で盤面はちょうど埋まる。これにより<strong>ゲームは必ず有限（最大16手）で終了する</strong>。</p>
+<h2>終了条件</h2>
+<p>盤面の16マスすべてが埋まった時点（＝両者が8枚のタイルをすべて使い切った時点）でゲーム終了。手が詰まって置けなくなる状況は発生しない（マス数とタイル総数が常に一致するため）。</p>
+<h2>ライン（得点判定の対象）</h2>
+<p>盤面上の以下10本を「ライン」と呼ぶ。各ラインは4マスから成る。</p>
+<ul>
+<li>横のライン: 4本（各行）</li>
+<li>縦のライン: 4本（各列）</li>
+<li>斜めのライン: 2本（左上→右下、右上→左下の対角線）</li>
+</ul>
+<h2>得点判定（ゲーム終了時）</h2>
+<p>盤面が埋まった後、10本のラインそれぞれについて以下を行う：</p>
+<ol>
+<li>そのライン上にある4マスのうち、プレイヤーAが置いた数字の合計（Aの合計）と、プレイヤーBが置いた数字の合計（Bの合計）を計算する。</li>
+<li>合計が大きい方が、そのラインを「制した」として1ポイントを得る。</li>
+<li>AとBの合計が同じ場合、そのラインは誰もポイントを得ない（引き分けライン）。</li>
+</ol>
+<p>10本すべてを判定し終えたら、獲得したライン数（0〜10）を比較する：</p>
+<ul>
+<li><strong>ライン数が多い方が勝者。</strong></li>
+<li><strong>ライン数が同じ場合</strong>は、タイブレークとして「全10ラインについての（自分の合計−相手の合計）」を合計した値（マージン合計）を比較し、大きい方が勝者とする。</li>
+<li><strong>マージン合計も同じ場合</strong>は、ライン数もマージン合計も互角の非常に際立った状況であるため、10本のラインを固定順（行1→行2→行3→行4→列1→列2→列3→列4→斜め1→斜め2）で先頭から見ていき、A合計とB合計に差がついた最初のラインの優位者を勝者とする。</li>
+<li><strong>上記すべてで決着しない場合</strong>（10本すべてのラインでA合計とB合計が完全に一致する、極めて稀な完全対称局面）は、最終フォールバックとして後手（プレイヤーB）を勝者とする。これは先手が手番順で得やすい有利をゲーム全体で相殺するための固定ルールであり、いずれの段階でも引き分けは発生しない。</li>
+</ul>
+<p>上記の判定により、<strong>このゲームに引き分けは存在しない</strong>（常にA・Bのどちらかが勝者になる）。</p>
+<h2>例外・注意事項</h2>
+<ul>
+<li>一度置いたタイルは移動・交換・除去できない。</li>
+<li>同じ数字を相手も持っているため、盤面には同じ数字が最大2つ（A用とB用）存在し得る。これはルール上の欠番や重複エラーではない。</li>
+<li>手札のどのタイルをどのマスに置くかは完全に自由（順番・場所の制約はない）。</li>
+<li>空きマスがある限り、どのマスにも置ける（隣接や連結の制約はない）。</li>
+</ul>
+<h2>セットアップ〜1〜2ターンの具体例</h2>
+<ol>
+<li>セットアップ: 4x4の空盤面。A、Bともに手札「1,2,3,4,5,6,7,8」。</li>
+<li>第1手（A）: Aは「8」を盤面の中央付近（2行2列目）に置く。→ そのマスはA=8。</li>
+<li>第2手（B）: Bは同じマスは置けないので別マス（同じ行の別列）に「7」を置き、Aのライン独占を防ごうとする。→ そのマスはB=7。</li>
+<li>以降、A→Bの順で交互に置いていき、16手（A8手・B8手）で盤面が埋まる。</li>
+<li>ゲーム終了後、10本のラインごとにA合計とB合計を比較し、ライン数の多い方が勝利する。</li>
+</ol>
+    <div class="cta-row" style="margin:40px 0 20px"><a class="btn btn-primary" href="../app/" target="_blank" rel="noopener">テンラインで遊ぶ</a><a class="btn btn-ghost" href="../">紹介ページへ戻る</a></div>
+  </main>
+  <footer class="wrap">
+    <span>&copy; サンシャインソフトウェア（運営責任者：旭洋平）　お問い合わせ：<a href="mailto:kanasi1119s@gmail.com">kanasi1119s@gmail.com</a></span>
+  </footer>
+</body>
+</html>

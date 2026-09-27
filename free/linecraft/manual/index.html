@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ラインクラフト 遊び方（ルールブック）｜サンシャインソフトウェア</title>
+<meta name="description" content="2人用ボードゲーム「ラインクラフト」のルールブック。準備、手番の流れ、勝ち負けの決め方を説明します。">
+<link rel="canonical" href="https://kanasi1119s-ops.github.io/free/linecraft/manual/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #fffdf6;
+    --paper-2: #fff6df;
+    --ink: #3d2e18;
+    --ink-soft: #8a7550;
+    --line: #f6e2a0;
+    --line-strong: #edc96a;
+    --stamp: #e2861a;
+    --stamp-deep: #c06f0f;
+    --forest: #3f8fa3;
+    --forest-deep: #2c6c7d;
+    --radius: 4px;
+    --serif: 'Shippori Mincho', serif;
+    --sans: 'Zen Kaku Gothic New', sans-serif;
+  }
+  :root[data-theme="dark"] {
+    --paper: #241c0f; --paper-2: #2c2312; --ink: #fbf1de; --ink-soft: #d8c093;
+    --line: #4a3a1c; --line-strong: #6b5526; --stamp: #f2a13c; --stamp-deep: #e2861a;
+    --forest: #7fc2d6; --forest-deep: #5fa3b8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #241c0f; --paper-2: #2c2312; --ink: #fbf1de; --ink-soft: #d8c093;
+      --line: #4a3a1c; --line-strong: #6b5526; --stamp: #f2a13c; --stamp-deep: #e2861a;
+      --forest: #7fc2d6; --forest-deep: #5fa3b8;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    line-height: 1.85;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 24px; }
+
+  header { border-bottom: 1px solid var(--line-strong); }
+  .header-inner {
+    max-width: 880px; margin: 0 auto; padding: 20px 24px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .sun-mark {
+    width: 34px; height: 34px; border-radius: 50%; flex-shrink: 0;
+    background: radial-gradient(circle at 32% 30%, #ffe9ad, var(--stamp) 72%);
+    box-shadow: 0 1px 0 rgba(61, 46, 24, 0.08);
+  }
+  .wordmark {
+    font-family: var(--serif); font-weight: 600; font-size: 17px;
+    letter-spacing: 0.03em; color: var(--ink);
+  }
+
+  .hero { padding: 68px 0 52px; border-bottom: 1px solid var(--line-strong); }
+  .eyebrow-line { display: flex; align-items: center; gap: 10px; color: var(--ink-soft); font-size: 13px; margin-bottom: 22px; }
+  .eyebrow-line::before { content: ""; width: 28px; height: 1px; background: var(--line-strong); }
+  h1.hero-title {
+    font-family: var(--serif); font-weight: 600; font-size: clamp(26px, 4.6vw, 38px);
+    line-height: 1.6; margin: 0 0 20px; max-width: 17ch; text-wrap: balance;
+  }
+  .hero-lede { font-size: 15.5px; color: var(--ink-soft); max-width: 52ch; margin: 0; }
+
+  section.block { padding: 52px 0; border-bottom: 1px solid var(--line-strong); }
+  .block-head { margin-bottom: 30px; }
+  h2.block-title {
+    font-family: var(--serif); font-weight: 600; font-size: clamp(18px, 2.6vw, 22px);
+    margin: 0; color: var(--ink-soft); letter-spacing: 0.02em;
+  }
+
+  .product-list { display: flex; flex-direction: column; gap: 1px; background: var(--line-strong); border: 1px solid var(--line-strong); }
+  .product-card {
+    background: var(--paper); padding: 32px; display: grid;
+    grid-template-columns: 56px 1fr auto; gap: 22px; align-items: center;
+    text-decoration: none; color: inherit;
+  }
+  .product-card:hover { background: var(--paper-2); }
+  .product-mark {
+    width: 56px; height: 56px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--serif); font-size: 24px; font-weight: 700; color: #fff9ec;
+    flex-shrink: 0;
+  }
+  .product-mark.keiri { background: radial-gradient(circle at 32% 30%, #ffd77a, var(--stamp) 70%); }
+  .product-mark.mitsu { background: radial-gradient(circle at 32% 30%, #8fd6e6, var(--forest) 70%); }
+  .product-name { font-family: var(--serif); font-size: 19px; font-weight: 600; margin: 0 0 6px; }
+  .product-desc { font-size: 13.5px; color: var(--ink-soft); margin: 0; max-width: 50ch; }
+  .product-price { font-size: 12px; color: var(--ink-soft); margin-top: 8px; }
+  .product-go {
+    font-size: 13px; font-weight: 700; color: var(--stamp); white-space: nowrap;
+  }
+  .product-card:hover .product-go { color: var(--stamp-deep); }
+  @media (max-width: 620px) {
+    .product-card { grid-template-columns: 44px 1fr; }
+    .product-go { grid-column: 2; }
+    .product-mark { width: 44px; height: 44px; font-size: 19px; }
+  }
+
+  .about p { max-width: 62ch; font-size: 14.5px; color: var(--ink-soft); }
+  .about-quote {
+    margin: 24px 0 0; padding: 16px 20px; border-left: 3px solid var(--stamp);
+    background: var(--paper-2); font-family: var(--serif); font-size: 14.5px; max-width: 54ch;
+  }
+
+  footer { padding: 32px 0 56px; font-size: 12px; color: var(--ink-soft); }
+  footer a { color: var(--ink-soft); text-decoration: underline; text-underline-offset: 3px; }
+  footer a:hover { color: var(--forest); }
+
+  :root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+  a.home-link { display:flex; align-items:center; gap:12px; text-decoration:none; color:inherit; }
+  .back { margin-left:auto; font-size:12.5px; color:var(--ink-soft); text-decoration:none; }
+  .back:hover { color: var(--forest); }
+  .free-tag { display:inline-block; font-size:12px; font-weight:700; color:var(--forest-deep);
+    border:1px solid var(--forest); border-radius:999px; padding:1px 12px; margin-bottom:18px; }
+  .feature-list { margin:0; padding:0; border-top:1px solid var(--line-strong); }
+  .feature-list div { display:grid; grid-template-columns: 11em 1fr; gap:20px; padding:18px 0; border-bottom:1px solid var(--line); }
+  .feature-list dt { font-family:var(--serif); font-weight:600; font-size:15px; }
+  .feature-list dd { margin:0; font-size:14px; color:var(--ink-soft); }
+  @media (max-width:620px){ .feature-list div { grid-template-columns:1fr; gap:4px; } }
+  .notes { margin:0; padding-left:1.2em; font-size:13.5px; color:var(--ink-soft); max-width:64ch; }
+  .notes li { margin-bottom:8px; }
+  .cta-row { display:flex; flex-wrap:wrap; gap:14px; align-items:center; margin-top:34px; }
+  .btn { display:inline-block; font-family:var(--sans); font-weight:700; font-size:14.5px; text-decoration:none;
+    padding:13px 28px; border-radius:var(--radius); }
+  .btn-primary { background:var(--stamp); color:#fffaf0; }
+  .btn-primary:hover { background:var(--stamp-deep); }
+  .btn-ghost { background:transparent; font-family:var(--sans); cursor:pointer;  border:1px solid var(--line-strong); color:var(--ink); }
+  .btn-ghost:hover { background:var(--paper-2); }
+  .cta-note { font-size:12.5px; color:var(--ink-soft); margin:12px 0 0; }
+  .related { font-size:13.5px; color:var(--ink-soft); margin-top:26px; padding:16px 20px; background:var(--paper-2); border-left:3px solid var(--forest); max-width:62ch; }
+  .related a { color:var(--forest-deep); }
+  a:focus-visible { outline:2px solid var(--forest); outline-offset:3px; }
+</style>
+<style>
+  .manual h2{font-family:var(--serif);font-weight:600;font-size:20px;margin:44px 0 12px;padding-top:20px;border-top:1px solid var(--line-strong)}
+  .manual h3{font-family:var(--serif);font-size:16.5px;margin:26px 0 6px}
+  .manual p,.manual li{font-size:14.5px}
+  .manual table{border-collapse:collapse;width:100%;font-size:13.5px;margin:12px 0;display:block;overflow-x:auto}
+  .manual th,.manual td{border:1px solid var(--line-strong);padding:8px 10px;text-align:left;vertical-align:top}
+  .manual th{background:var(--paper-2)}
+  .manual code{background:var(--paper-2);padding:1px 5px;border-radius:3px}
+  .manual pre{background:var(--paper-2);padding:12px 14px;overflow-x:auto;font-size:13px}
+  .manual blockquote{margin:14px 0;padding:10px 16px;border-left:3px solid var(--forest);background:var(--paper-2)}
+</style>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ccircle cx=%2250%22 cy=%2250%22 r=%2240%22 fill=%22%23e8a33d%22/%3E%3C/svg%3E">
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a class="home-link" href="../../../"><span class="sun-mark"></span><span class="wordmark">サンシャインソフトウェア</span></a>
+      <a class="back" href="../">ラインクラフトの紹介へ</a>
+    </div>
+  </header>
+  <main class="wrap manual">
+    <section class="hero" style="padding-bottom:28px">
+      <span class="free-tag">ルールブック</span>
+      <h1 class="hero-title">ラインクラフトの遊び方</h1>
+      <div class="cta-row" style="margin-top:10px"><a class="btn btn-primary" href="../app/" target="_blank" rel="noopener">ラインクラフトで遊ぶ</a></div>
+    </section>
+<p>version 0.1 / 2026-09-27</p>
+<h2>1行コンセプト</h2>
+<p>「場に並ぶ3枚のタイルから1枚を選び取り、盤上の4x4マスに置いて、縦・横・斜めの合計値で相手より勝るラインを1本でも多く作る」2人用の短時間アブストラクトゲーム。</p>
+<h2>基本情報</h2>
+<ul>
+<li>プレイ人数: 2人（対人戦・AI対戦の両対応）</li>
+<li>プレイ時間: 約10〜15分</li>
+<li>対象年齢: 8歳以上</li>
+<li>ジャンル: アブストラクト戦略・ドラフト＆プレイスメント</li>
+</ul>
+<h2>コアループ</h2>
+<ol>
+<li>場（マーケット）に並ぶ3枚の数字タイルから1枚を選んで取る</li>
+<li>盤面4x4の空いているマスに好きな場所に置く（自分の色として記録される）</li>
+<li>マーケットを山札から補充する</li>
+<li>手番交代</li>
+</ol>
+<p>これを盤面が埋まる（16マス）まで繰り返し、最後に縦4本・横4本・斜め2本、合計10本のライン上で自分の置いた数字の合計が相手より大きいラインの数を競う。</p>
+<h2>コンポーネント一覧</h2>
+<table>
+<thead>
+<tr>
+<th>コンポーネント</th>
+<th>数</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>数字タイル</td>
+<td>16枚</td>
+<td>値は1・2・3・4がそれぞれ4枚ずつ</td>
+</tr>
+<tr>
+<td>盤面</td>
+<td>1枚</td>
+<td>4x4マス（16マス）</td>
+</tr>
+<tr>
+<td>プレイヤーマーカー（色）</td>
+<td>2色</td>
+<td>どちらが置いたタイルかを示す</td>
+</tr>
+</tbody>
+</table>
+<h2>セットアップ</h2>
+<ol>
+<li>16枚のタイルをよくシャッフルし、山札にする（デジタル版ではシード値付き乱数で再現可能）。</li>
+<li>山札の上から3枚を表向きにしてマーケットに並べる。</li>
+<li>盤面（4x4マス）を空の状態で用意する。</li>
+<li>先手（プレイヤー1）を決める（デジタル版ではプレイヤー1固定、もしくはコイントス相当のランダム決定）。</li>
+</ol>
+<h2>手番順（スネークドラフト）</h2>
+<p>単純な「交互手番（P1→P2→P1→P2…）」だと、毎回先にマーケットを覗けるプレイヤー1が構造的に有利になることがテストで分かった。これを緩和するため、本ゲームは4手を1ブロックとした<strong>スネークドラフト順</strong>を採用する。</p>
+<pre><code>P1, P2, P2, P1, | P1, P2, P2, P1, | P1, P2, P2, P1, | P1, P2, P2, P1
+</code></pre>
+<p>16手をこの順で行うと、各プレイヤーはちょうど8手ずつ担当し、かつ「連続して先に選べる回数」が均等になる。覚え方は「1人ずつ→2人ずつ交代」で難しくない。</p>
+<h2>ターンの流れ</h2>
+<p>手番プレイヤーは以下を <strong>この順番で</strong> 行う。</p>
+<ol>
+<li><strong>ドラフト</strong>: マーケットに並ぶ最大3枚のタイルから1枚を選んで手に取る。</li>
+<li><strong>配置</strong>: そのタイルを盤面の空いている任意のマスに置く。置いたタイルは自分の色になる（一度置いたタイルは動かせない・裏返せない）。</li>
+<li><strong>補充</strong>: 山札の一番上のタイルを1枚めくり、マーケットの空いた枠に補充する。山札が尽きている場合はマーケットの枠が減ったまま（3枚→2枚→1枚→0枚）続行する。</li>
+<li>手番はもう一方のプレイヤーに移る。</li>
+</ol>
+<p>同時手番は存在しない。プレイヤー1とプレイヤー2が交互に手番を行い、各プレイヤーはゲーム終了までにちょうど8枚ずつ配置する（16マス÷2人）。</p>
+<h2>終了条件</h2>
+<p>盤面の16マスすべてが埋まった時点で即座にゲーム終了。タイルは16枚しかなく、1マスに1枚しか置けないため、<strong>ゲームは必ずちょうど16手（各プレイヤー8手）で終了する</strong>。無限ループや手詰まり（置ける場所がない状況）は構造上発生しない。</p>
+<h2>得点計算</h2>
+<p>盤面には合計10本のラインが存在する。</p>
+<ul>
+<li>横ライン: 4本（各行）</li>
+<li>縦ライン: 4本（各列）</li>
+<li>斜めライン: 2本（左上→右下、右上→左下）</li>
+</ul>
+<p>各ラインについて、そのライン上にある4マスのうち、プレイヤーAが置いたタイルの数字の合計と、プレイヤーBが置いたタイルの数字の合計を比較する。</p>
+<ul>
+<li>合計が大きい方が、そのラインを<strong>1点</strong>獲得する。</li>
+<li>合計値が同じ場合、そのラインは<strong>引き分け</strong>（どちらにも点数は入らない）。</li>
+<li>1マスも自分のタイルがないラインは合計0として扱う。</li>
+</ul>
+<p>10本のライン点を集計し、<strong>ライン点数が多い方の勝ち</strong>。</p>
+<h3>タイブレーク（ライン点数が同点の場合）</h3>
+<ol>
+<li>盤面全体で自分が置いたタイルの数字の合計値（総和）が大きい方が勝ち。</li>
+<li>それも同値の場合は「引き分け」を正式な結果とする（無理に決着をつけない）。</li>
+</ol>
+<h2>プレイ例（冒頭2ターン）</h2>
+<ol>
+<li>マーケット: [3, 1, 4]。プレイヤー1は「4」を取り、盤面の中央寄りのマス(1,1)に置く。マーケットが[1, 2]→補充で[1, 2, 2]になる（山札の次が2だった場合）。</li>
+<li>マーケット: [1, 2, 2]。プレイヤー2は「2」を取り、(1,1)と同じ行のマス(1,3)に置いて、その行でのプレイヤー1優位を早めに削りにいく。マーケットは[1, 2]→補充される。</li>
+<li>以降同様に、8ターンずつ交互に繰り返し、16マスが埋まったら得点計算を行う。</li>
+</ol>
+    <div class="cta-row" style="margin:40px 0 20px"><a class="btn btn-primary" href="../app/" target="_blank" rel="noopener">ラインクラフトで遊ぶ</a><a class="btn btn-ghost" href="../">紹介ページへ戻る</a></div>
+  </main>
+  <footer class="wrap">
+    <span>&copy; サンシャインソフトウェア（運営責任者：旭洋平）　お問い合わせ：<a href="mailto:kanasi1119s@gmail.com">kanasi1119s@gmail.com</a></span>
+  </footer>
+</body>
+</html>

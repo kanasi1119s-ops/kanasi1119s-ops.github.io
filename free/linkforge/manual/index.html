@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>LinkForge（リンクフォージ） 遊び方（ルールブック）｜サンシャインソフトウェア</title>
+<meta name="description" content="2人用ボードゲーム「LinkForge（リンクフォージ）」のルールブック。準備、手番の流れ、勝ち負けの決め方を説明します。">
+<link rel="canonical" href="https://kanasi1119s-ops.github.io/free/linkforge/manual/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #fffdf6;
+    --paper-2: #fff6df;
+    --ink: #3d2e18;
+    --ink-soft: #8a7550;
+    --line: #f6e2a0;
+    --line-strong: #edc96a;
+    --stamp: #e2861a;
+    --stamp-deep: #c06f0f;
+    --forest: #3f8fa3;
+    --forest-deep: #2c6c7d;
+    --radius: 4px;
+    --serif: 'Shippori Mincho', serif;
+    --sans: 'Zen Kaku Gothic New', sans-serif;
+  }
+  :root[data-theme="dark"] {
+    --paper: #241c0f; --paper-2: #2c2312; --ink: #fbf1de; --ink-soft: #d8c093;
+    --line: #4a3a1c; --line-strong: #6b5526; --stamp: #f2a13c; --stamp-deep: #e2861a;
+    --forest: #7fc2d6; --forest-deep: #5fa3b8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #241c0f; --paper-2: #2c2312; --ink: #fbf1de; --ink-soft: #d8c093;
+      --line: #4a3a1c; --line-strong: #6b5526; --stamp: #f2a13c; --stamp-deep: #e2861a;
+      --forest: #7fc2d6; --forest-deep: #5fa3b8;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    line-height: 1.85;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 24px; }
+
+  header { border-bottom: 1px solid var(--line-strong); }
+  .header-inner {
+    max-width: 880px; margin: 0 auto; padding: 20px 24px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .sun-mark {
+    width: 34px; height: 34px; border-radius: 50%; flex-shrink: 0;
+    background: radial-gradient(circle at 32% 30%, #ffe9ad, var(--stamp) 72%);
+    box-shadow: 0 1px 0 rgba(61, 46, 24, 0.08);
+  }
+  .wordmark {
+    font-family: var(--serif); font-weight: 600; font-size: 17px;
+    letter-spacing: 0.03em; color: var(--ink);
+  }
+
+  .hero { padding: 68px 0 52px; border-bottom: 1px solid var(--line-strong); }
+  .eyebrow-line { display: flex; align-items: center; gap: 10px; color: var(--ink-soft); font-size: 13px; margin-bottom: 22px; }
+  .eyebrow-line::before { content: ""; width: 28px; height: 1px; background: var(--line-strong); }
+  h1.hero-title {
+    font-family: var(--serif); font-weight: 600; font-size: clamp(26px, 4.6vw, 38px);
+    line-height: 1.6; margin: 0 0 20px; max-width: 17ch; text-wrap: balance;
+  }
+  .hero-lede { font-size: 15.5px; color: var(--ink-soft); max-width: 52ch; margin: 0; }
+
+  section.block { padding: 52px 0; border-bottom: 1px solid var(--line-strong); }
+  .block-head { margin-bottom: 30px; }
+  h2.block-title {
+    font-family: var(--serif); font-weight: 600; font-size: clamp(18px, 2.6vw, 22px);
+    margin: 0; color: var(--ink-soft); letter-spacing: 0.02em;
+  }
+
+  .product-list { display: flex; flex-direction: column; gap: 1px; background: var(--line-strong); border: 1px solid var(--line-strong); }
+  .product-card {
+    background: var(--paper); padding: 32px; display: grid;
+    grid-template-columns: 56px 1fr auto; gap: 22px; align-items: center;
+    text-decoration: none; color: inherit;
+  }
+  .product-card:hover { background: var(--paper-2); }
+  .product-mark {
+    width: 56px; height: 56px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--serif); font-size: 24px; font-weight: 700; color: #fff9ec;
+    flex-shrink: 0;
+  }
+  .product-mark.keiri { background: radial-gradient(circle at 32% 30%, #ffd77a, var(--stamp) 70%); }
+  .product-mark.mitsu { background: radial-gradient(circle at 32% 30%, #8fd6e6, var(--forest) 70%); }
+  .product-name { font-family: var(--serif); font-size: 19px; font-weight: 600; margin: 0 0 6px; }
+  .product-desc { font-size: 13.5px; color: var(--ink-soft); margin: 0; max-width: 50ch; }
+  .product-price { font-size: 12px; color: var(--ink-soft); margin-top: 8px; }
+  .product-go {
+    font-size: 13px; font-weight: 700; color: var(--stamp); white-space: nowrap;
+  }
+  .product-card:hover .product-go { color: var(--stamp-deep); }
+  @media (max-width: 620px) {
+    .product-card { grid-template-columns: 44px 1fr; }
+    .product-go { grid-column: 2; }
+    .product-mark { width: 44px; height: 44px; font-size: 19px; }
+  }
+
+  .about p { max-width: 62ch; font-size: 14.5px; color: var(--ink-soft); }
+  .about-quote {
+    margin: 24px 0 0; padding: 16px 20px; border-left: 3px solid var(--stamp);
+    background: var(--paper-2); font-family: var(--serif); font-size: 14.5px; max-width: 54ch;
+  }
+
+  footer { padding: 32px 0 56px; font-size: 12px; color: var(--ink-soft); }
+  footer a { color: var(--ink-soft); text-decoration: underline; text-underline-offset: 3px; }
+  footer a:hover { color: var(--forest); }
+
+  :root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+  a.home-link { display:flex; align-items:center; gap:12px; text-decoration:none; color:inherit; }
+  .back { margin-left:auto; font-size:12.5px; color:var(--ink-soft); text-decoration:none; }
+  .back:hover { color: var(--forest); }
+  .free-tag { display:inline-block; font-size:12px; font-weight:700; color:var(--forest-deep);
+    border:1px solid var(--forest); border-radius:999px; padding:1px 12px; margin-bottom:18px; }
+  .feature-list { margin:0; padding:0; border-top:1px solid var(--line-strong); }
+  .feature-list div { display:grid; grid-template-columns: 11em 1fr; gap:20px; padding:18px 0; border-bottom:1px solid var(--line); }
+  .feature-list dt { font-family:var(--serif); font-weight:600; font-size:15px; }
+  .feature-list dd { margin:0; font-size:14px; color:var(--ink-soft); }
+  @media (max-width:620px){ .feature-list div { grid-template-columns:1fr; gap:4px; } }
+  .notes { margin:0; padding-left:1.2em; font-size:13.5px; color:var(--ink-soft); max-width:64ch; }
+  .notes li { margin-bottom:8px; }
+  .cta-row { display:flex; flex-wrap:wrap; gap:14px; align-items:center; margin-top:34px; }
+  .btn { display:inline-block; font-family:var(--sans); font-weight:700; font-size:14.5px; text-decoration:none;
+    padding:13px 28px; border-radius:var(--radius); }
+  .btn-primary { background:var(--stamp); color:#fffaf0; }
+  .btn-primary:hover { background:var(--stamp-deep); }
+  .btn-ghost { background:transparent; font-family:var(--sans); cursor:pointer;  border:1px solid var(--line-strong); color:var(--ink); }
+  .btn-ghost:hover { background:var(--paper-2); }
+  .cta-note { font-size:12.5px; color:var(--ink-soft); margin:12px 0 0; }
+  .related { font-size:13.5px; color:var(--ink-soft); margin-top:26px; padding:16px 20px; background:var(--paper-2); border-left:3px solid var(--forest); max-width:62ch; }
+  .related a { color:var(--forest-deep); }
+  a:focus-visible { outline:2px solid var(--forest); outline-offset:3px; }
+</style>
+<style>
+  .manual h2{font-family:var(--serif);font-weight:600;font-size:20px;margin:44px 0 12px;padding-top:20px;border-top:1px solid var(--line-strong)}
+  .manual h3{font-family:var(--serif);font-size:16.5px;margin:26px 0 6px}
+  .manual p,.manual li{font-size:14.5px}
+  .manual table{border-collapse:collapse;width:100%;font-size:13.5px;margin:12px 0;display:block;overflow-x:auto}
+  .manual th,.manual td{border:1px solid var(--line-strong);padding:8px 10px;text-align:left;vertical-align:top}
+  .manual th{background:var(--paper-2)}
+  .manual code{background:var(--paper-2);padding:1px 5px;border-radius:3px}
+  .manual pre{background:var(--paper-2);padding:12px 14px;overflow-x:auto;font-size:13px}
+  .manual blockquote{margin:14px 0;padding:10px 16px;border-left:3px solid var(--forest);background:var(--paper-2)}
+</style>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ccircle cx=%2250%22 cy=%2250%22 r=%2240%22 fill=%22%23e8a33d%22/%3E%3C/svg%3E">
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a class="home-link" href="../../../"><span class="sun-mark"></span><span class="wordmark">サンシャインソフトウェア</span></a>
+      <a class="back" href="../">LinkForgeの紹介へ</a>
+    </div>
+  </header>
+  <main class="wrap manual">
+    <section class="hero" style="padding-bottom:28px">
+      <span class="free-tag">ルールブック</span>
+      <h1 class="hero-title">LinkForgeの遊び方</h1>
+      <div class="cta-row" style="margin-top:10px"><a class="btn btn-primary" href="../app/" target="_blank" rel="noopener">LinkForgeで遊ぶ</a></div>
+    </section>
+<p>対象年齢: 8歳以上　プレイ人数: 2人　プレイ時間: 5〜15分</p>
+<h2>1. コアループ</h2>
+<blockquote>
+<p>空いているマスに自分の石を置くか、限られた回数だけ相手の石を奪って置き直す「フォージ」を使い、先に自分の石を5つ連結させる。</p>
+</blockquote>
+<h2>2. コンポーネント</h2>
+<ul>
+<li>盤面: 7×7 マス（49マス）</li>
+<li>石: 赤（先手 / プレイヤーA）・青（後手 / プレイヤーB）各24個相当（デジタル版では無制限に生成されるため物理個数の制約はない）</li>
+<li>フォージ権: 各プレイヤー3回（ゲーム開始時に付与、消費のみで補充されない）</li>
+</ul>
+<h2>3. セットアップ</h2>
+<ol>
+<li>盤面（7×7の空マス）を用意する。</li>
+<li>先手（プレイヤーA / 赤）と後手（プレイヤーB / 青）を決める。</li>
+<li>各プレイヤーのフォージ権を3回にセットする。</li>
+<li>先手から手番を開始する。</li>
+</ol>
+<h2>4. 先手番の特別ルール：パイルール（オープニング・スワップ）</h2>
+<p>五目並べ系ゲームは先手が有利になりやすいため、以下の補正を行う。</p>
+<ol>
+<li>プレイヤーAは最初の手番で、通常の「配置」のみを行える（フォージは使用不可）。</li>
+<li>プレイヤーAが石を置いた直後、プレイヤーBは次のいずれかを選択する。<ul>
+<li><strong>スワップ</strong>: Aが置いた最初の石を、青（B）の石に変える。その後はAの手番になり、以降は通常どおり交互に進める（色が変わるのはこの1個だけ）。</li>
+<li><strong>続行</strong>: スワップせず、Bが通常どおり自分の色（青）で石を配置する。以降は通常の交互手番。</li>
+</ul>
+</li>
+<li>スワップは一度きり（最初の1手に対してのみ）。</li>
+</ol>
+<p>これにより「強すぎる初手」を後手が選択的に無効化でき、先手有利を緩和する。</p>
+<h2>5. ターンの流れ</h2>
+<p>手番プレイヤーは、以下の<strong>いずれか1つ</strong>を必ず行う。</p>
+<h3>(a) 配置（Place）</h3>
+<ul>
+<li>空いている任意のマスに自分の石を1個置く。</li>
+</ul>
+<h3>(b) フォージ（Forge）※フォージ権が1回以上残っている場合のみ</h3>
+<ol>
+<li>相手の石のうち、次の<strong>両方</strong>の条件を満たす石を1個選び、盤上から取り除く。<ul>
+<li>同色で4方向隣接の連結グループが<strong>3個未満</strong>であること（保護されていない）</li>
+<li>置かれてから<strong>2ターン以上経過</strong>していること（置かれた直後の1ターンは猶予期間としてフォージ対象にならない）</li>
+</ul>
+</li>
+<li>空いている任意のマス（取り除いたマス自身でもよい）に自分の石を1個置く。</li>
+<li>フォージ権を1回消費する。</li>
+</ol>
+<blockquote>
+<p><strong>猶予期間について</strong>: テストプレイで、猶予期間なしだと「開いた三（両端が空きマスの3連結）を単独の石でブロックしても、相手がその場でフォージして即座にブロックを取り消し、そのまま5連結を完成させてしまう」という、先手が実質的に無条件で勝ててしまう致命的な必勝パターンが見つかった。これを防ぐため、置かれたばかりの石には1ターンの猶予期間を設けている。</p>
+</blockquote>
+<p>配置・フォージのいずれの場合も、石を置いた直後に勝利判定を行う。</p>
+<h2>6. 勝利条件</h2>
+<ul>
+<li>自分の石が縦・横・斜めいずれかの方向に<strong>連続して5個</strong>並んだ時点で、その手を打ったプレイヤーが即座に勝利する。</li>
+<li>石を置いた結果、両プレイヤーが同時に5連結になることは、直前の手番プレイヤーの石のみを判定するため発生しない。</li>
+</ul>
+<h2>7. 終了条件（引き分け回避・有限性の保証）</h2>
+<ul>
+<li>盤面49マスがすべて埋まり、かつ勝者が確定していない場合、<strong>盤上の最大連結グループの大きさ</strong>を比較する。<ul>
+<li>大きい方が勝利。</li>
+<li>同数の場合は<strong>盤上の総石数が多い方</strong>が勝利（フォージの使用状況により差が出ることがある）。</li>
+<li>それでも同数の場合は<strong>引き分け</strong>とする。</li>
+</ul>
+</li>
+<li>ゲームの有限性は以下の理由で保証される。<ul>
+<li>「配置」は必ず空きマスを1つ減らす。盤面49マスを完全に埋めるには、スワップの有無によらず必ず49回の「配置」が必要になる。</li>
+<li>「フォージ」は空きマスの総数を変化させない（相手の石を1個除去し、自分の石を1個置くため）が、フォージ権は各プレイヤー3回、合計最大6回までしか使用できない。</li>
+<li>「スワップ」は開幕直後に最大1回だけ発生し得る、配置を伴わない特殊な1手である。</li>
+<li>したがって、ゲームは最大 49（配置）+ 6（両者のフォージ権合計）+ 1（開幕スワップ）= <strong>56手以内</strong>に必ず終了する。</li>
+</ul>
+</li>
+</ul>
+<h2>8. 例外・タイブレーク処理まとめ</h2>
+<table>
+<thead>
+<tr>
+<th>状況</th>
+<th>処理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>フォージ対象にできる石がない（相手の石がすべて3連結以上のグループに属す）</td>
+<td>フォージは選択不可。配置のみ行える</td>
+</tr>
+<tr>
+<td>空きマスがない状態でフォージしようとする</td>
+<td>発生しない（空きマスがなくなる前に終了条件で試合が終わっているため）</td>
+</tr>
+<tr>
+<td>盤面が埋まり両者の最大連結が同数</td>
+<td>総石数が多い方が勝利。総石数も同数なら引き分け</td>
+</tr>
+<tr>
+<td>パイルールでBがスワップを選択</td>
+<td>Aが置いた石は青（B）の石になる。手番はAに戻り、以降通常進行</td>
+</tr>
+</tbody>
+</table>
+<h2>9. プレイ例（冒頭2ターン）</h2>
+<ol>
+<li>プレイヤーA（赤）が中央マス（4,4）に石を配置。</li>
+<li>プレイヤーBは「続行」を選択（中央を奪うにはリスクがあると判断）。プレイヤーBは(4,5)に青石を配置。</li>
+<li>以降、AとBが交互に「配置」または「フォージ」を選びながら、5連結を目指す。</li>
+</ol>
+    <div class="cta-row" style="margin:40px 0 20px"><a class="btn btn-primary" href="../app/" target="_blank" rel="noopener">LinkForgeで遊ぶ</a><a class="btn btn-ghost" href="../">紹介ページへ戻る</a></div>
+  </main>
+  <footer class="wrap">
+    <span>&copy; サンシャインソフトウェア（運営責任者：旭洋平）　お問い合わせ：<a href="mailto:kanasi1119s@gmail.com">kanasi1119s@gmail.com</a></span>
+  </footer>
+</body>
+</html>
