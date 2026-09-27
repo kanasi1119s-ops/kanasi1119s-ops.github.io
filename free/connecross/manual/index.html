@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>コネクロス 遊び方（ルールブック）｜サンシャインソフトウェア</title>
+<meta name="description" content="2人用ボードゲーム「コネクロス」のルールブック。準備、手番の流れ、3種類のカード、勝ち負けの決め方を説明します。">
+<link rel="canonical" href="https://kanasi1119s-ops.github.io/free/connecross/manual/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #fffdf6;
+    --paper-2: #fff6df;
+    --ink: #3d2e18;
+    --ink-soft: #8a7550;
+    --line: #f6e2a0;
+    --line-strong: #edc96a;
+    --stamp: #e2861a;
+    --stamp-deep: #c06f0f;
+    --forest: #3f8fa3;
+    --forest-deep: #2c6c7d;
+    --radius: 4px;
+    --serif: 'Shippori Mincho', serif;
+    --sans: 'Zen Kaku Gothic New', sans-serif;
+  }
+  :root[data-theme="dark"] {
+    --paper: #241c0f; --paper-2: #2c2312; --ink: #fbf1de; --ink-soft: #d8c093;
+    --line: #4a3a1c; --line-strong: #6b5526; --stamp: #f2a13c; --stamp-deep: #e2861a;
+    --forest: #7fc2d6; --forest-deep: #5fa3b8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #241c0f; --paper-2: #2c2312; --ink: #fbf1de; --ink-soft: #d8c093;
+      --line: #4a3a1c; --line-strong: #6b5526; --stamp: #f2a13c; --stamp-deep: #e2861a;
+      --forest: #7fc2d6; --forest-deep: #5fa3b8;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    line-height: 1.85;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 24px; }
+
+  header { border-bottom: 1px solid var(--line-strong); }
+  .header-inner {
+    max-width: 880px; margin: 0 auto; padding: 20px 24px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .sun-mark {
+    width: 34px; height: 34px; border-radius: 50%; flex-shrink: 0;
+    background: radial-gradient(circle at 32% 30%, #ffe9ad, var(--stamp) 72%);
+    box-shadow: 0 1px 0 rgba(61, 46, 24, 0.08);
+  }
+  .wordmark {
+    font-family: var(--serif); font-weight: 600; font-size: 17px;
+    letter-spacing: 0.03em; color: var(--ink);
+  }
+
+  .hero { padding: 68px 0 52px; border-bottom: 1px solid var(--line-strong); }
+  .eyebrow-line { display: flex; align-items: center; gap: 10px; color: var(--ink-soft); font-size: 13px; margin-bottom: 22px; }
+  .eyebrow-line::before { content: ""; width: 28px; height: 1px; background: var(--line-strong); }
+  h1.hero-title {
+    font-family: var(--serif); font-weight: 600; font-size: clamp(26px, 4.6vw, 38px);
+    line-height: 1.6; margin: 0 0 20px; max-width: 17ch; text-wrap: balance;
+  }
+  .hero-lede { font-size: 15.5px; color: var(--ink-soft); max-width: 52ch; margin: 0; }
+
+  section.block { padding: 52px 0; border-bottom: 1px solid var(--line-strong); }
+  .block-head { margin-bottom: 30px; }
+  h2.block-title {
+    font-family: var(--serif); font-weight: 600; font-size: clamp(18px, 2.6vw, 22px);
+    margin: 0; color: var(--ink-soft); letter-spacing: 0.02em;
+  }
+
+  .product-list { display: flex; flex-direction: column; gap: 1px; background: var(--line-strong); border: 1px solid var(--line-strong); }
+  .product-card {
+    background: var(--paper); padding: 32px; display: grid;
+    grid-template-columns: 56px 1fr auto; gap: 22px; align-items: center;
+    text-decoration: none; color: inherit;
+  }
+  .product-card:hover { background: var(--paper-2); }
+  .product-mark {
+    width: 56px; height: 56px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--serif); font-size: 24px; font-weight: 700; color: #fff9ec;
+    flex-shrink: 0;
+  }
+  .product-mark.keiri { background: radial-gradient(circle at 32% 30%, #ffd77a, var(--stamp) 70%); }
+  .product-mark.mitsu { background: radial-gradient(circle at 32% 30%, #8fd6e6, var(--forest) 70%); }
+  .product-name { font-family: var(--serif); font-size: 19px; font-weight: 600; margin: 0 0 6px; }
+  .product-desc { font-size: 13.5px; color: var(--ink-soft); margin: 0; max-width: 50ch; }
+  .product-price { font-size: 12px; color: var(--ink-soft); margin-top: 8px; }
+  .product-go {
+    font-size: 13px; font-weight: 700; color: var(--stamp); white-space: nowrap;
+  }
+  .product-card:hover .product-go { color: var(--stamp-deep); }
+  @media (max-width: 620px) {
+    .product-card { grid-template-columns: 44px 1fr; }
+    .product-go { grid-column: 2; }
+    .product-mark { width: 44px; height: 44px; font-size: 19px; }
+  }
+
+  .about p { max-width: 62ch; font-size: 14.5px; color: var(--ink-soft); }
+  .about-quote {
+    margin: 24px 0 0; padding: 16px 20px; border-left: 3px solid var(--stamp);
+    background: var(--paper-2); font-family: var(--serif); font-size: 14.5px; max-width: 54ch;
+  }
+
+  footer { padding: 32px 0 56px; font-size: 12px; color: var(--ink-soft); }
+  footer a { color: var(--ink-soft); text-decoration: underline; text-underline-offset: 3px; }
+  footer a:hover { color: var(--forest); }
+
+  :root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+  a.home-link { display:flex; align-items:center; gap:12px; text-decoration:none; color:inherit; }
+  .back { margin-left:auto; font-size:12.5px; color:var(--ink-soft); text-decoration:none; }
+  .back:hover { color: var(--forest); }
+  .free-tag { display:inline-block; font-size:12px; font-weight:700; color:var(--forest-deep);
+    border:1px solid var(--forest); border-radius:999px; padding:1px 12px; margin-bottom:18px; }
+  .feature-list { margin:0; padding:0; border-top:1px solid var(--line-strong); }
+  .feature-list div { display:grid; grid-template-columns: 11em 1fr; gap:20px; padding:18px 0; border-bottom:1px solid var(--line); }
+  .feature-list dt { font-family:var(--serif); font-weight:600; font-size:15px; }
+  .feature-list dd { margin:0; font-size:14px; color:var(--ink-soft); }
+  @media (max-width:620px){ .feature-list div { grid-template-columns:1fr; gap:4px; } }
+  .notes { margin:0; padding-left:1.2em; font-size:13.5px; color:var(--ink-soft); max-width:64ch; }
+  .notes li { margin-bottom:8px; }
+  .cta-row { display:flex; flex-wrap:wrap; gap:14px; align-items:center; margin-top:34px; }
+  .btn { display:inline-block; font-family:var(--sans); font-weight:700; font-size:14.5px; text-decoration:none;
+    padding:13px 28px; border-radius:var(--radius); }
+  .btn-primary { background:var(--stamp); color:#fffaf0; }
+  .btn-primary:hover { background:var(--stamp-deep); }
+  .btn-ghost { background:transparent; font-family:var(--sans); cursor:pointer;  border:1px solid var(--line-strong); color:var(--ink); }
+  .btn-ghost:hover { background:var(--paper-2); }
+  .cta-note { font-size:12.5px; color:var(--ink-soft); margin:12px 0 0; }
+  .related { font-size:13.5px; color:var(--ink-soft); margin-top:26px; padding:16px 20px; background:var(--paper-2); border-left:3px solid var(--forest); max-width:62ch; }
+  .related a { color:var(--forest-deep); }
+  a:focus-visible { outline:2px solid var(--forest); outline-offset:3px; }
+</style>
+<style>
+  .manual h2{font-family:var(--serif);font-weight:600;font-size:20px;margin:44px 0 12px;padding-top:20px;border-top:1px solid var(--line-strong)}
+  .manual h3{font-family:var(--serif);font-size:16.5px;margin:26px 0 6px}
+  .manual p,.manual li{font-size:14.5px}
+  .manual table{border-collapse:collapse;width:100%;font-size:13.5px;margin:12px 0;display:block;overflow-x:auto}
+  .manual th,.manual td{border:1px solid var(--line-strong);padding:8px 10px;text-align:left;vertical-align:top}
+  .manual th{background:var(--paper-2)}
+  .manual code{background:var(--paper-2);padding:1px 5px;border-radius:3px}
+</style>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ccircle cx=%2250%22 cy=%2250%22 r=%2240%22 fill=%22%23e8a33d%22/%3E%3C/svg%3E">
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a class="home-link" href="../../../"><span class="sun-mark"></span><span class="wordmark">サンシャインソフトウェア</span></a>
+      <a class="back" href="../">コネクロスの紹介へ</a>
+    </div>
+  </header>
+  <main class="wrap manual">
+    <section class="hero" style="padding-bottom:28px">
+      <span class="free-tag">ルールブック</span>
+      <h1 class="hero-title">コネクロスの遊び方</h1>
+      <div class="cta-row" style="margin-top:10px"><a class="btn btn-primary" href="../app/" target="_blank" rel="noopener">コネクロスで遊ぶ</a></div>
+    </section>
+<p>version 1.0 / 2026-09-27</p>
+<h2>1. ゲーム概要</h2>
+<p>コネクロス は、7×7マスの盤上に自分の色の石を置き、<strong>盤上で最大のつながり（連結グループ）を作った方が勝ち</strong>の2人対戦アブストラクトゲームです。</p>
+<p>各ターン、山札から1枚カードをめくり、そのカードが指示する置き方に従って石を置きます。カードには「普通に置く」「好きな場所に飛ばす」「相手の邪魔をする」の3種類があり、めくったカードによって取れる行動が変わるため、盤面をどう育てるか・相手をどう妨害するかの読み合いが生まれます。</p>
+<ul>
+<li><strong>プレイ人数</strong>: 2人（うち1人をAI対戦相手に置き換え可能。ソロプレイ対応）</li>
+<li><strong>プレイ時間</strong>: 約15〜20分</li>
+<li><strong>対象年齢</strong>: 8歳以上</li>
+<li><strong>必要なもの（デジタル版）</strong>: ブラウザのみ</li>
+<li><strong>必要なもの（Print &amp; Playで物理プレイする場合）</strong>: 7×7の盤面1枚、赤石24個・青石24個・グレーの障害物石8個程度、行動カード20枚（後述の内訳で自作）</li>
+</ul>
+<h2>2. コンポーネント一覧</h2>
+<table>
+<thead>
+<tr>
+<th>コンポーネント</th>
+<th>数量</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>盤面</td>
+<td>1</td>
+<td>7×7 = 49マスの正方形グリッド</td>
+</tr>
+<tr>
+<td>プレイヤー石（赤）</td>
+<td>最大49個</td>
+<td>プレイヤー1 (先手) の石</td>
+</tr>
+<tr>
+<td>プレイヤー石（青）</td>
+<td>最大49個</td>
+<td>プレイヤー2 (後手) の石</td>
+</tr>
+<tr>
+<td>障害物石（グレー）</td>
+<td>最大49個</td>
+<td>どちらの陣地にもならない中立の石</td>
+</tr>
+<tr>
+<td>行動カード</td>
+<td>20枚</td>
+<td>内訳: PLACE（普通に置く）12枚 / JUMP（好きな場所に置く）4枚 / BLOCK（妨害する）4枚</td>
+</tr>
+</tbody>
+</table>
+<p>石・障害物の数はどちらも盤面のマス数(49)を上限として必要な分だけ用意すれば問題ありません（デジタル版は自動管理）。</p>
+<h2>3. 勝利条件・終了条件</h2>
+<ul>
+<li>セットアップ時、<strong>盤面中央 (4行4列目) には最初からグレーの障害物が1個置かれています</strong>（先手・後手の手数をそろえるための調整ルールです）。これにより実際に石を置ける空きマスは48マスになります。</li>
+<li>盤面の<strong>残り48マスすべてが埋まった時点で即座にゲーム終了</strong>します。</li>
+<li>終了時、各プレイヤーについて「上下左右に隣接して連結している自分の石のかたまり（連結グループ）」の中で最大のものの石数を数えます。</li>
+<li><strong>その最大連結グループが大きい方が勝ち</strong>です。</li>
+<li>同数の場合は、盤上に置いた自分の石の総数が多い方が勝ちです（BLOCKで置いた障害物石はカウントしません）。</li>
+<li>それでも同数の場合は <strong>引き分け</strong> とします。</li>
+</ul>
+<p>石の置き方は毎ターン必ず1マスを埋めるため（自分の石またはグレーの障害物）、ゲームは必ず<strong>最大48ターン以内</strong>に終了し、詰み・無限ループは発生しません。また空きマスが偶数（48）のため、P1・P2は必ず同じ手数（24手ずつ）を行います。</p>
+<h2>4. ターンの流れ</h2>
+<p>先手（プレイヤー1・赤）から交互に手番を行います。各手番で以下を行います。</p>
+<ol>
+<li>山札から行動カードを1枚めくる（山札が尽きたら、それまでの捨て札をよく混ぜて新しい山札にする）</li>
+<li>カードの指示に従って、盤上の空きマスに石（またはBLOCKの場合は障害物）を1個置く</li>
+<li>めくったカードを捨て札にする</li>
+<li>手番を相手に渡す</li>
+<li>盤面が全て埋まっていればゲーム終了。埋まっていなければ1に戻る</li>
+</ol>
+<h2>5. カードの種類とアクション</h2>
+<h3>PLACE（通常配置）— 山札20枚中12枚</h3>
+<ul>
+<li>自分の石を、<strong>すでに盤上にある自分の石のいずれかに上下左右で隣接する空きマス</strong>に置く。</li>
+<li>まだ自分の石を1つも置いていない場合（ゲーム最初の自分の手番）は、盤上のどの空きマスにでも置いてよい。</li>
+<li><strong>例外（詰まり救済ルール）</strong>: 自分の石はあるが、それに隣接する空きマスが盤上に1つも残っていない場合に限り、盤上のどこか好きな空きマスに置いてよい（JUMPと同じ扱いになる）。</li>
+</ul>
+<h3>JUMP（自由配置）— 山札20枚中4枚</h3>
+<ul>
+<li>盤上のどの空きマスにでも、自分の石を1個置ける（隣接条件なし）。</li>
+<li>遠く離れた場所に新しい拠点を作ったり、相手のかたまりを分断する位置に置いたりする自由度の高いカード。</li>
+</ul>
+<h3>BLOCK（妨害）— 山札20枚中4枚</h3>
+<ul>
+<li>盤上のどの空きマスにでも、グレーの障害物を1個置ける。</li>
+<li>自分の石は増えないが、相手が育てようとしているかたまりを分断したり、有利なマスを潰したりできる。</li>
+<li>自分のターンを1回「消費」してでも相手を止めたいときに使う、駆け引きの要となるカード。</li>
+</ul>
+<h2>6. セットアップ手順</h2>
+<ol>
+<li>7×7の盤面を用意し、<strong>中央マス (4,4) にグレーの障害物を1個置く</strong>（先手・後手の手数をそろえるための調整です）。</li>
+<li>行動カード20枚（PLACE12・JUMP4・BLOCK4）をよく混ぜて山札にする。</li>
+<li>先手（プレイヤー1・赤）を決める（デジタル版は常にプレイヤー1が先手。CPU対戦時は先手/後手を選択可能）。</li>
+<li>「4. ターンの流れ」に従って交互にプレイする。</li>
+</ol>
+<h2>7. プレイ例（最初の2ターン）</h2>
+<ul>
+<li><strong>1ターン目（P1・赤）</strong>: 山札からPLACEをめくる。まだ自分の石がないので、盤面のどこでも置ける。中央のすぐ隣 (3,4) に配置。</li>
+<li><strong>2ターン目（P2・青）</strong>: 山札からJUMPをめくる。まだ自分の石がないが、JUMPなのでどこでもよい。角に近い (2,2) に配置。</li>
+<li><strong>3ターン目（P1・赤）</strong>: 山札からPLACEをめくる。既に (3,4) に石があるので、その上下左右いずれかの空きマス、例えば (3,5) に配置し、かたまりを2個に拡大する。</li>
+<li><strong>4ターン目（P2・青）</strong>: 山札からBLOCKをめくる。P1が伸ばしそうな (2,4) にグレーの障害物を置き、拡大方向を制限する。</li>
+</ul>
+<p>このように、めくったカード次第で「素直に育てる」か「相手の芽を摘む」かの選択を毎ターン迫られます。</p>
+<h2>8. こんなときは？（よくある質問）</h2>
+<ul>
+<li><strong>盤上に自分の石が無く、かつBLOCKで埋められて空きマスが無い場合</strong>: 発生しません。石を持たない状態で置けなくなるのは盤面が全て埋まった時のみで、その時点でゲームは終了します。</li>
+<li><strong>PLACEで隣接マスが無い場合</strong>: 5節の「詰まり救済ルール」によりJUMP同様どこにでも置けます。</li>
+<li><strong>同点の場合</strong>: 3節の通り総石数、それでも同点なら引き分けとします。</li>
+<li><strong>山札切れ</strong>: 捨て札を再シャッフルして山札を再構成します（トランプの一般的なルールと同様）。</li>
+</ul>
+    <div class="cta-row" style="margin:40px 0 20px"><a class="btn btn-primary" href="../app/" target="_blank" rel="noopener">コネクロスで遊ぶ</a><a class="btn btn-ghost" href="../">紹介ページへ戻る</a></div>
+  </main>
+  <footer class="wrap">
+    <span>&copy; サンシャインソフトウェア（運営責任者：旭洋平）　お問い合わせ：<a href="mailto:kanasi1119s@gmail.com">kanasi1119s@gmail.com</a></span>
+  </footer>
+</body>
+</html>
