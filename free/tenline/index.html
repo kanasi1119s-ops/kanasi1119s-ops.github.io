@@ -161,6 +161,10 @@
   .card .n{font-size:12px;color:var(--ink-soft)}
   .card p{font-size:13.5px;color:var(--ink-soft);margin:8px 0 0}
 </style>
+<style>
+  /* スマホで文字が画面の端にくっつかないよう、左右の余白を常に確保する */
+  html body .wrap { padding-left: max(24px, env(safe-area-inset-left)); padding-right: max(24px, env(safe-area-inset-right)); }
+</style>
 </head>
 <body>
   <header>
