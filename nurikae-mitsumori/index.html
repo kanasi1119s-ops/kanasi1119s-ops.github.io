@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ぬりかえ見積｜塗装店向け見積ソフト｜サンシャインソフトウェア</title>
+<meta name="description" content="外壁の寸法を入れるだけで、塗装面積・塗料の缶数・梅竹松3グレードの見積書（A4）まで作れる塗装店向けの見積ソフト。ログイン不要・買い切り9,800円（税込）。">
+<link rel="canonical" href="https://kanasi1119s-ops.github.io/nurikae-mitsumori/">
+<meta property="og:title" content="ぬりかえ見積｜塗装店向け見積ソフト">
+<meta property="og:description" content="寸法を入れるだけで、面積・缶数・3グレードの見積書まで。ログイン不要・買い切り9,800円（税込）。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kanasi1119s-ops.github.io/nurikae-mitsumori/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%2312355B%22/%3E%3Ccircle cx=%2250%22 cy=%2250%22 r=%2224%22 fill=%22%23FFD54F%22/%3E%3C/svg%3E">
+<style>
+  :root {
+    --navy: #12355B;
+    --yellow: #FFD54F;
+    --ink: #1A1A1A;
+    --ink-soft: #3A3A3A;
+    --line: #C9D2DD;
+    --bg: #FFFFFF;
+    --bg-soft: #F3F6FA;
+  }
+  * { box-sizing: border-box; }
+  html { font-size: 18px; scroll-behavior: smooth; }
+  html[data-text-size="large"] { font-size: 21px; }
+  html[data-text-size="xlarge"] { font-size: 24px; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic UI", "Meiryo", sans-serif;
+    font-size: 1rem; line-height: 1.8;
+  }
+  img { max-width: 100%; height: auto; display: block; }
+  input, button, textarea, select { font-family: inherit; font-size: 1rem; }
+  a { color: var(--navy); }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+  .hidden { display: none; }
+
+  header.top { background: var(--navy); color: #fff; }
+  header.top .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; padding-top: 12px; padding-bottom: 12px; }
+  .brand { color: #fff; text-decoration: none; font-weight: 700; font-size: 1.05rem; }
+  .brand small { display: block; font-weight: 400; font-size: 1rem; }
+  .size-switch { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+  .size-switch span { font-size: 1rem; }
+  .size-switch button {
+    min-height: 48px; min-width: 56px; padding: 0 12px; border: 2px solid #fff; border-radius: 8px;
+    background: transparent; color: #fff; font-size: 1rem; font-weight: 700; cursor: pointer;
+  }
+  .size-switch button[aria-pressed="true"] { background: var(--yellow); color: var(--navy); border-color: var(--yellow); }
+  .size-switch button[aria-pressed="true"]::before { content: "✓ "; }
+  button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible { outline: 4px solid var(--yellow); outline-offset: 2px; }
+
+  .hero { background: var(--bg-soft); padding: 48px 0 40px; border-bottom: 1px solid var(--line); }
+  .hero .for { display: inline-block; background: var(--yellow); color: var(--navy); font-weight: 700; padding: 2px 12px; border-radius: 6px; }
+  .hero h1 { font-size: 2.2rem; line-height: 1.4; margin: 14px 0 10px; color: var(--navy); }
+  .hero .lede { font-size: 1.15rem; margin: 0 0 22px; }
+  .price-tag { font-size: 1.1rem; margin: 0 0 22px; }
+  .price-tag strong { font-size: 2rem; color: var(--navy); }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; min-height: 56px; padding: 0 26px;
+    border-radius: 10px; font-size: 1.05rem; font-weight: 700; text-decoration: none; cursor: pointer; border: 2px solid var(--navy);
+  }
+  .btn-primary { background: var(--yellow); color: var(--navy); border-color: var(--navy); }
+  .btn-ghost { background: #fff; color: var(--navy); }
+  .btn-row { display: flex; flex-wrap: wrap; gap: 12px; }
+
+  section.block { padding: 44px 0; border-bottom: 1px solid var(--line); }
+  h2 { font-size: 1.6rem; color: var(--navy); margin: 0 0 18px; line-height: 1.4; }
+  h3 { font-size: 1.25rem; color: var(--navy); margin: 0 0 8px; }
+  .lead { margin: 0 0 20px; }
+  .steps { display: grid; gap: 28px; }
+  .step { display: grid; grid-template-columns: 1fr; gap: 12px; }
+  .step-num { display: inline-block; background: var(--navy); color: #fff; font-weight: 700; padding: 0 12px; border-radius: 6px; margin-right: 6px; }
+  .shot { border: 2px solid var(--line); border-radius: 10px; overflow: hidden; background: #fff; }
+  .caption { font-size: 1rem; color: var(--ink-soft); margin: 6px 0 0; }
+
+  .points { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; padding: 0; margin: 0; list-style: none; }
+  .points li { background: var(--bg-soft); border-left: 6px solid var(--navy); padding: 16px 18px; border-radius: 6px; }
+  .points b { color: var(--navy); }
+
+  table { width: 100%; border-collapse: collapse; font-size: 1rem; }
+  th, td { border: 1px solid var(--line); padding: 10px 12px; text-align: left; vertical-align: top; }
+  th { background: var(--bg-soft); color: var(--navy); }
+  .table-wrap { overflow-x: auto; }
+  .note { font-size: 1rem; color: var(--ink-soft); }
+
+  .price-box { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+  .price-card { border: 2px solid var(--navy); border-radius: 10px; padding: 18px; }
+  .price-card.main { background: #FFF8DC; }
+  .price-card .yen { font-size: 1.8rem; font-weight: 700; color: var(--navy); }
+
+  .flow { padding-left: 1.4em; margin: 0; }
+  .flow li { margin-bottom: 8px; }
+
+  footer { background: var(--navy); color: #fff; padding: 28px 0; }
+  footer a { color: #fff; }
+  footer .links { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 8px; }
+  footer .links a { display: inline-flex; align-items: center; min-height: 48px; }
+
+  .panel { display: none; padding: 32px 0 60px; }
+  .panel.open { display: block; }
+  .back { display: inline-flex; align-items: center; min-height: 48px; font-weight: 700; }
+  .panel h1 { font-size: 1.7rem; color: var(--navy); }
+  dl.legal { margin: 0; border-top: 1px solid var(--line); }
+  dl.legal dt { font-weight: 700; color: var(--navy); padding-top: 14px; }
+  dl.legal dd { margin: 4px 0 0; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+  details { border: 1px solid var(--line); border-radius: 8px; padding: 6px 16px; margin-bottom: 10px; }
+  summary { cursor: pointer; font-weight: 700; color: var(--navy); min-height: 48px; display: flex; align-items: center; }
+
+  .field { display: block; margin-bottom: 20px; }
+  .f-label { display: block; font-weight: 700; margin-bottom: 6px; }
+  .req { background: var(--navy); color: #fff; font-size: 1rem; padding: 0 8px; border-radius: 4px; margin-left: 6px; }
+  .opt { font-weight: 400; font-size: 1rem; color: var(--ink-soft); }
+  input[type=text], input[type=email], textarea {
+    width: 100%; font-size: 1rem; padding: 10px 12px; border: 2px solid var(--navy); border-radius: 8px; min-height: 52px; font-family: inherit;
+  }
+  textarea { min-height: 130px; }
+  fieldset { border: none; padding: 0; margin: 0; }
+  .radio-opt { display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px; border: 2px solid var(--line); border-radius: 8px; margin-bottom: 8px; min-height: 52px; cursor: pointer; }
+  .radio-opt input { width: 24px; height: 24px; margin-top: 4px; flex: none; }
+  .err { color: #B00020; font-weight: 700; margin-top: 6px; }
+
+  @media (max-width: 640px) {
+    .hero h1 { font-size: 1.7rem; }
+    h2 { font-size: 1.35rem; }
+    .btn { width: 100%; }
+  }
+  @media print {
+    header.top .size-switch, .btn-row, footer .links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="../">サンシャインソフトウェア<small>塗装店向け見積ソフト「ぬりかえ見積」</small></a>
+    <div class="size-switch" role="group" aria-label="文字サイズ">
+      <span>文字サイズ：</span>
+      <button type="button" data-size="normal" aria-pressed="true">標準</button>
+      <button type="button" data-size="large" aria-pressed="false">大</button>
+      <button type="button" data-size="xlarge" aria-pressed="false">特大</button>
+    </div>
+  </div>
+</header>
+
+<main id="main-content">
+  <section class="hero">
+    <div class="wrap">
+      <span class="for">外壁・屋根の塗装店さま向け</span>
+      <h1>寸法を入れるだけで、<br>面積・塗料の缶数・<br>3グレードの見積書まで。</h1>
+      <p class="lede">外周・高さ・窓の面積を入れると外壁の面積が出て、塗料を選ぶと缶数と材料費が出ます。梅・竹・松を並べた見積書を、そのままA4で印刷できます。</p>
+      <p class="price-tag">買い切り <strong>9,800円</strong>（税込）　ログイン不要・月額なし</p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="#apply" onclick="showApply(); return false;">購入を申し込む</a>
+        <a class="btn btn-ghost" href="#features">できることを見る</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="features">
+    <div class="wrap">
+      <h2>できること</h2>
+      <p class="lead">見積の「面積の計算 → 缶数の計算 → 見積書」を、ひとつの画面でつなげます。画面はお試し用のサンプル（架空の値）です。</p>
+      <div class="steps">
+        <div class="step">
+          <h3><span class="step-num">1</span>寸法を入れると、外壁の面積が出る</h3>
+          <p>建物のまわりの長さ・外壁の高さ・窓とドアの面積を入れると、計算式つきで面積が出ます。延床面積からのおおよその計算や、手で直すこともできます。</p>
+          <div class="shot"><img src="img/menseki.png" width="1165" height="440" alt="面積を出す画面。外周40m、高さ6m、窓・ドア25㎡を入れると、外壁の面積215㎡と計算式が出ている"></div>
+        </div>
+        <div class="step">
+          <h3><span class="step-num">2</span>塗料を選ぶと、缶数と材料費が出る</h3>
+          <p>登録した塗料の塗る量と1缶の量から、下塗・中塗・上塗の缶数を切り上げで計算します。同じ塗料はまとめて計算するので、缶の数がむだに増えません。</p>
+          <div class="shot"><img src="img/toryo.png" width="1165" height="1100" alt="3つのプランの塗料を選ぶ画面。梅・竹・松それぞれに塗料と缶数、材料費（税抜）が出ている"></div>
+        </div>
+        <div class="step">
+          <h3><span class="step-num">3</span>3グレードを並べた見積書を、A4で印刷</h3>
+          <p>小計・消費税（10%）・合計（税込）まで自動で計算します。各項目の金額は税抜、合計は税込とはっきり分けて表示します。</p>
+          <div class="shot"><img src="img/mitsumorisho.png" width="1124" height="1376" alt="御見積書の画面。梅・竹・松の3グレードが並び、合計（税込）は1,172,050円・1,268,850円・1,419,550円"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <h2>使いやすさの工夫</h2>
+      <ul class="points">
+        <li><b>文字が大きい</b><br>本文は18px以上。右上で「標準・大・特大」に切り替えられます。</li>
+        <li><b>ログインも月額もなし</b><br>パソコンでファイルを開くだけ。インターネットにつながっていなくても使えます。</li>
+        <li><b>入力すると自動で保存</b><br>保存ボタンの押し忘れがありません。バックアップの書き出しもできます。</li>
+        <li><b>前の見積をコピー</b><br>似た現場の見積は、コピーして数字を直すだけです。</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="block" id="price">
+    <div class="wrap">
+      <h2>価格</h2>
+      <div class="price-box">
+        <div class="price-card main">
+          <h3>ソフト本体（買い切り）</h3>
+          <p class="yen">9,800円<span class="note">（税込）</span></p>
+          <p>購入から30日間は、メールでのお問い合わせに対応します。</p>
+        </div>
+        <div class="price-card">
+          <h3>年間サポート（任意）</h3>
+          <p class="yen">4,980円<span class="note">／年（税込）</span></p>
+          <p>メールでのお問い合わせ対応、期間中に出した不具合の修正版のお渡し、バックアップの手順のご案内。</p>
+        </div>
+        <div class="price-card">
+          <h3>カスタマイズ</h3>
+          <p class="yen">5万円から</p>
+          <p>項目や単価の初期設定の入力代行、見積書の形の変更など。内容をうかがってお見積りします。</p>
+        </div>
+      </div>
+      <p class="note">月額の料金はありません。年間サポートは入らなくてもソフトはそのまま使えます。</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <h2>ご購入の流れ</h2>
+      <ol class="flow">
+        <li>下の［購入を申し込む］から、お名前とメールアドレスを入れてメールを送ってください。</li>
+        <li>こちらから、お支払い方法をメールでご案内します。</li>
+        <li>お支払いを確認したら、ソフトのファイルと取扱説明書をメールでお送りします。</li>
+        <li>届いたファイルをパソコンに保存し、ダブルクリックで開けばすぐ使えます。</li>
+      </ol>
+      <div class="btn-row" style="margin-top:20px;">
+        <a class="btn btn-primary" href="#apply" onclick="showApply(); return false;">購入を申し込む</a>
+        <a class="btn btn-ghost" href="#faq" onclick="showFaq(); return false;">よくある質問</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <h2>ご注意</h2>
+      <ul>
+        <li>面積・缶数は目安です。缶数はカタログの塗る量どおりの計算で、余り・吸い込み・薄め液の分は入っていません。</li>
+        <li>見積書は、請求書や訪問販売の契約書面の代わりにはなりません。</li>
+        <li>データは、お使いのパソコンのブラウザの中だけに保存されます。閲覧履歴を消すと消えることがあるので、ときどきバックアップをとってください。</li>
+        <li>動作を確認しているのは、Windowsのパソコンの Microsoft Edge です。そのほかのブラウザでの動作は確認中です。</li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<div id="apply" class="panel">
+  <div class="wrap">
+    <a class="back" href="#top" onclick="hideApply(); return false;">← ページに戻る</a>
+    <h1>購入のお申し込み・お問い合わせ</h1>
+    <p>入力して［メールを準備する］を押すと、内容を整えたメールがお使いのメールアプリで開きます。そのまま送信してください。折り返し、お支払い方法をご案内します。</p>
+    <form id="apply-form" novalidate>
+      <label class="field">
+        <span class="f-label">お名前<span class="req">必須</span></span>
+        <input type="text" id="apply-name" name="name" maxlength="60" placeholder="例：塗装 太郎" required>
+        <span class="err" id="err-name" hidden>お名前を入れてください。</span>
+      </label>
+      <label class="field">
+        <span class="f-label">会社名・屋号 <span class="opt">（任意）</span></span>
+        <input type="text" id="apply-business" name="business" maxlength="60" placeholder="例：〇〇塗装">
+      </label>
+      <label class="field">
+        <span class="f-label">メールアドレス<span class="req">必須</span></span>
+        <input type="email" id="apply-email" name="email" maxlength="120" placeholder="例：info@example.com" required>
+        <span class="err" id="err-email" hidden>メールアドレスの形が正しくありません。「@」が入っているか確かめてください。</span>
+      </label>
+      <div class="field">
+        <span class="f-label">ご希望</span>
+        <fieldset>
+          <label class="radio-opt"><input type="radio" name="plan" value="ソフト本体（買い切り9,800円）" checked><span>ソフト本体（買い切り 9,800円・税込）</span></label>
+          <label class="radio-opt"><input type="radio" name="plan" value="ソフト本体＋年間サポート（9,800円＋4,980円／年）"><span>ソフト本体＋年間サポート（9,800円＋4,980円／年・税込）</span></label>
+          <label class="radio-opt"><input type="radio" name="plan" value="カスタマイズの相談"><span>カスタマイズの相談（5万円から）</span></label>
+          <label class="radio-opt"><input type="radio" name="plan" value="まずは質問したい"><span>まずは質問したい</span></label>
+        </fieldset>
+      </div>
+      <label class="field">
+        <span class="f-label">ご質問・ご要望 <span class="opt">（任意）</span></span>
+        <textarea id="apply-message" name="message" maxlength="1000" placeholder="気になる点があれば、ご自由にお書きください"></textarea>
+      </label>
+      <button type="submit" class="btn btn-primary">メールを準備する</button>
+      <p class="note">このボタンでは送信されません。メールアプリが開くので、内容を確かめて送信してください。</p>
+    </form>
+  </div>
+</div>
+
+<div id="faq" class="panel">
+  <div class="wrap">
+    <a class="back" href="#top" onclick="hideFaq(); return false;">← ページに戻る</a>
+    <h1>よくある質問</h1>
+    <details><summary>パソコンが苦手でも使えますか？</summary><p>ボタンは大きく、どの作業も3ステップ以内にしています。取扱説明書（画面の画像つき）もお送りします。</p></details>
+    <details><summary>インターネットにつながっていないと使えませんか？</summary><p>つながっていなくても使えます。ファイルをダブルクリックして開くだけです。</p></details>
+    <details><summary>スマホでも使えますか？</summary><p>スマホの画面に合わせた表示にしています。ただし、見積書の印刷はパソコンからをおすすめします。</p></details>
+    <details><summary>データはどこに保存されますか？</summary><p>お使いのパソコンのブラウザの中だけです。こちらのサーバーには送られません。ときどきバックアップのファイルを書き出してください。</p></details>
+    <details><summary>無料で試せますか？</summary><p>今はお試し版をご用意していません。このページの画面の画像で、どんなソフトかをご確認ください。気になる点は、お申し込みフォームの「まずは質問したい」からお気軽にどうぞ。</p></details>
+    <details><summary>支払い方法は何がありますか？</summary><p>お申し込みのメールをいただいた方に、個別にご案内しています。</p></details>
+    <details><summary>購入後、いつ届きますか？</summary><p>お支払いを確認でき次第、ソフトのファイルと取扱説明書をメールでお送りします。</p></details>
+    <details><summary>消費税8%は選べますか？</summary><p>塗装工事は通常10%のため、10%だけにしています。</p></details>
+  </div>
+</div>
+
+<div id="privacy" class="panel">
+  <div class="wrap">
+    <a class="back" href="#top" onclick="hidePrivacy(); return false;">← ページに戻る</a>
+    <h1>プライバシーポリシー</h1>
+    <dl class="legal">
+      <dt>ソフトに入力した内容</dt>
+      <dd>ぬりかえ見積に入力したお客さまの名前・住所・金額などは、お使いのパソコンのブラウザの中だけに保存されます。当方に送られることはありません。</dd>
+      <dt>お問い合わせでいただく情報</dt>
+      <dd>メールでいただいたお名前・メールアドレス等は、お問い合わせへの回答と、お申し込みの手続き（お支払いのご案内・ソフトのお渡し）にのみ使用します。ご本人の同意なく第三者に提供することはありません。</dd>
+      <dt>お問い合わせ先</dt>
+      <dd>サンシャインソフトウェア（運営責任者：旭洋平）　kanasi1119s@gmail.com</dd>
+    </dl>
+  </div>
+</div>
+
+<div id="tokushoho" class="panel">
+  <div class="wrap">
+    <a class="back" href="#top" onclick="hideTokushoho(); return false;">← ページに戻る</a>
+    <h1>特定商取引法に基づく表記</h1>
+    <dl class="legal">
+      <dt>販売事業者名</dt>
+      <dd>サンシャインソフトウェア（運営責任者：旭洋平）</dd>
+      <dt>所在地</dt>
+      <dd>お客様からご請求をいただいた場合、遅滞なく開示いたします。お問い合わせは下記メールアドレスよりお願いいたします。</dd>
+      <dt>お問い合わせ先</dt>
+      <dd>メールアドレス：kanasi1119s@gmail.com<br>※電話でのお問い合わせは受け付けておりません。メールにてご連絡ください。</dd>
+      <dt>販売価格</dt>
+      <dd>ソフト本体：9,800円（税込・買い切り）<br>年間サポート（任意）：4,980円／年（税込）<br>カスタマイズ：5万円から（内容に応じて個別にお見積り）</dd>
+      <dt>商品代金以外の必要料金</dt>
+      <dd>お支払いの際の振込手数料等、メールの受信に必要な通信費は、お客様のご負担となります。</dd>
+      <dt>お支払い方法</dt>
+      <dd>メールでのお申し込み後、個別にご案内します。</dd>
+      <dt>お支払い時期</dt>
+      <dd>ソフト本体：お申し込み後、ご案内した期日まで。年間サポート：お申し込み時、以降は1年ごと。</dd>
+      <dt>商品の引渡し時期</dt>
+      <dd>お支払い確認後、ソフトのファイルと取扱説明書をメールでお送りします。</dd>
+      <dt>動作環境</dt>
+      <dd>Windowsのパソコンと Microsoft Edge（動作確認済み）。そのほかのブラウザでの動作は確認中です。</dd>
+      <dt>返品・キャンセルについて</dt>
+      <dd>デジタル商品の性質上、ファイルをお送りした後のお客様のご都合による返金は行っておりません。ファイルが開けないなどの不具合は、メールでご連絡ください。</dd>
+    </dl>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div>&copy; <a href="../">サンシャインソフトウェア</a>（運営責任者：旭洋平）　お問い合わせ：<a href="mailto:kanasi1119s@gmail.com">kanasi1119s@gmail.com</a></div>
+    <div class="links">
+      <a href="#faq" onclick="showFaq(); return false;">よくある質問</a>
+      <a href="#privacy" onclick="showPrivacy(); return false;">プライバシーポリシー</a>
+      <a href="#tokushoho" onclick="showTokushoho(); return false;">特定商取引法に基づく表記</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var KEY = 'nurikae-lp:text-size';
+    var root = document.documentElement;
+    function apply(size) {
+      if (size === 'large' || size === 'xlarge') root.dataset.textSize = size; else delete root.dataset.textSize;
+      document.querySelectorAll('.size-switch button').forEach(function (b) {
+        b.setAttribute('aria-pressed', String(b.dataset.size === (size || 'normal')));
+      });
+    }
+    var saved = null;
+    try { saved = localStorage.getItem(KEY); } catch (e) {}
+    apply(saved);
+    document.querySelectorAll('.size-switch button').forEach(function (b) {
+      b.addEventListener('click', function () {
+        apply(b.dataset.size);
+        try { localStorage.setItem(KEY, b.dataset.size); } catch (e) {}
+      });
+    });
+  })();
+
+  var PANELS = ['apply', 'faq', 'privacy', 'tokushoho'];
+  function showPanel(id) {
+    PANELS.forEach(function (p) { document.getElementById(p).classList.remove('open'); });
+    document.getElementById('main-content').classList.add('hidden');
+    document.getElementById(id).classList.add('open');
+    window.scrollTo(0, 0);
+    history.replaceState(null, '', '#' + id);
+  }
+  function hidePanels() {
+    PANELS.forEach(function (p) { document.getElementById(p).classList.remove('open'); });
+    document.getElementById('main-content').classList.remove('hidden');
+    window.scrollTo(0, 0);
+    history.replaceState(null, '', location.pathname);
+  }
+  function showApply() { showPanel('apply'); }
+  function showFaq() { showPanel('faq'); }
+  function showPrivacy() { showPanel('privacy'); }
+  function showTokushoho() { showPanel('tokushoho'); }
+  var hideApply = hidePanels, hideFaq = hidePanels, hidePrivacy = hidePanels, hideTokushoho = hidePanels;
+
+  document.getElementById('apply-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var data = new FormData(e.target);
+    var name = String(data.get('name') || '').trim();
+    var business = String(data.get('business') || '').trim();
+    var email = String(data.get('email') || '').trim();
+    var plan = String(data.get('plan') || '');
+    var message = String(data.get('message') || '').trim();
+    var okName = name.length > 0;
+    var okEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    document.getElementById('err-name').hidden = okName;
+    document.getElementById('err-email').hidden = okEmail;
+    if (!okName) { document.getElementById('apply-name').focus(); return; }
+    if (!okEmail) { document.getElementById('apply-email').focus(); return; }
+    var subject = 'ぬりかえ見積 お申し込み（' + name + '様）';
+    var body = [
+      'ぬりかえ見積の申し込みフォームより送信します。',
+      '',
+      'お名前：' + name,
+      '会社名・屋号：' + (business || '（未記入）'),
+      'メールアドレス：' + email,
+      'ご希望：' + plan,
+      '',
+      'ご質問・ご要望：',
+      message || '（特になし）'
+    ].join('\n');
+    window.location.href = 'mailto:kanasi1119s@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+  });
+
+  var h = location.hash.replace('#', '');
+  if (PANELS.indexOf(h) >= 0) showPanel(h);
+</script>
+</body>
+</html>
